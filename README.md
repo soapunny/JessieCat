@@ -1,2 +1,2 @@
 # JessieCat
-JessieCat Streaming Service
+JessieCat Video Streaming Service
