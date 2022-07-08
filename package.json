@@ -1,0 +1,29 @@
+{
+  "name": "jessiecat",
+  "version": "1.0.0",
+  "description": "JessieCat Video Streaming Service",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soapunny/JessieCat.git"
+  },
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/server/server.js"
+  },
+  "author": "Soapunny<soapunny@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/soapunny/JessieCat/issues"
+  },
+  "homepage": "https://github.com/soapunny/JessieCat#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "morgan": "^1.10.0",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/node": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "nodemon": "^2.0.18"
+  }
+}

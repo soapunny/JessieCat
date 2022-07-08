@@ -1,0 +1,7 @@
+mixin video(info)
+    div 
+        h4 #{index+1}. #{info.title}(#{Math.floor(info.length/60).toString().padStart(2, '0')}:#{String(info.length%60).padStart(2, '0')})
+        ul
+            li date: #{info.date}
+            li Like: #{info.like}
+            li Views: #{info.views}

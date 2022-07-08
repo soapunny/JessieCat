@@ -1,0 +1,26 @@
+doctype html
+html(lang="en")
+    head 
+        meta(name='viewport' content='width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes, initial-scale=1.0')
+        title #{pageTitle} | Jessie Cat
+        link(rel='stylesheet' href='https://unpkg.com/mvp.css')
+        block cssLinks
+    body
+        header
+            nav 
+                ul 
+                    li 
+                        a(href='#') About Us
+                    
+                    if testUser && testUser.loggedIn
+                        li Hello #{testUser.username}
+                    if testUser && testUser.loggedIn
+                        li 
+                            a(href='/logout') Logout
+                    else
+                        li
+                            a(href='/login') Login
+            h1=pageTitle
+        main
+            block content
+        include footer

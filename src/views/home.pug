@@ -1,0 +1,15 @@
+extends partials/base
+include mixins/video
+
+
+block content
+    span 
+        input(type='text' placeholder='search')
+    span 
+        button send
+    h2 Trending Videos
+    each video, index in videos
+        +video(video)
+    else 
+        div Sorry, No Result.
+
