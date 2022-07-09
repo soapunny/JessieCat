@@ -1,7 +1,8 @@
-mixin video(info)
+mixin video(video, index)
     div 
-        h4 #{index+1}. #{info.title}(#{Math.floor(info.length/60).toString().padStart(2, '0')}:#{String(info.length%60).padStart(2, '0')})
+        h4 
+            a(href=`/video/${video.id}`) #{index+1}. #{video.title}(#{Math.floor(video.length/60).toString().padStart(2, '0')}:#{String(video.length%60).padStart(2, '0')})
         ul
-            li date: #{info.date}
-            li Like: #{info.like}
-            li Views: #{info.views}
+            li date: #{video.date}
+            li Like: #{video.meta.like}
+            li View: #{video.meta.view}

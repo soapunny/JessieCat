@@ -8,8 +8,10 @@ block content
     span 
         button send
     h2 Trending Videos
-    each video, index in videos
-        +video(video)
+    if videos
+        each video, index in videos
+            +video(video, index)
+        else 
+            div Sorry, No Result.
     else 
         div Sorry, No Result.
-

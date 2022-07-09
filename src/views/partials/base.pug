@@ -10,13 +10,15 @@ html(lang="en")
             nav 
                 ul 
                     li 
-                        a(href='#') About Us
+                        a(href='/') Home
                     
                     if testUser && testUser.loggedIn
                         li Hello #{testUser.username}
                     if testUser && testUser.loggedIn
                         li 
                             a(href='/logout') Logout
+                        li
+                            a(href='/video/upload') Upload Video
                     else
                         li
                             a(href='/login') Login

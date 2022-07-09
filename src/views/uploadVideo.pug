@@ -4,3 +4,8 @@ extends partials/base
 
 block content 
     h1 upload new video!
+    form(method='post')
+        input(name='title' type='text' placeholder='Title' required)
+        input(name='file' type='file')
+        input(type='submit' value='Save')
+    a(href='/') &larr; Go Home
