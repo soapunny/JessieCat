@@ -351,3 +351,6 @@ MigrationBackup/
 
 # visual studio code
 .vscode/
+
+# privacy
+privacy/
