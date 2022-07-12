@@ -1,0 +1,25 @@
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
+
+const userSchema = new mongoose.Schema({
+    email: {type: String, required: true, unique: true},
+    username: {type: String, required: true, unique: true},
+    password: {type: String, required: true},
+    name: {type: String, required: true},
+    joinDate: {type: Date, required: true, default: Date.now},
+    location: String,
+});
+
+userSchema.pre('save', async function() {
+    //npm i bcrypt : install bcrypt to hash password
+    //it protect hashed-password from "rainbow table" attack.
+    this.password = await bcrypt.hash(this.password, 5);
+});
+
+userSchema.static("comparePassword", async (password, hashedPassword) => {
+    return await bcrypt.compare(password, hashedPassword);
+});
+
+const UserDBModel = mongoose.model('User', userSchema);
+
+export default UserDBModel;

@@ -1,8 +1,10 @@
 mixin video(video, index)
     div 
-        h4 
-            a(href=`/video/${video.id}`) #{index+1}. #{video.title}(#{Math.floor(video.length/60).toString().padStart(2, '0')}:#{String(video.length%60).padStart(2, '0')})
+        h3 
+            a(href=`/video/${video.id}`) #{index+1}. #{video.title}
+        h4=video.description
+        div=toFormattedDate(video.date)
         ul
-            li date: #{video.date}
-            li Like: #{video.meta.like}
-            li View: #{video.meta.view}
+            each hashtag in video.hashtags
+                li=hashtag
+        hr

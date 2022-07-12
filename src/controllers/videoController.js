@@ -1,49 +1,95 @@
 import VideoDTO from "../dto/videoDTO";
-import {getVideos, getVideo, editVideo, uploadVideo} from "../models/videoModel"
+import { toFormattedDate, toFullDate, removeHashtags } from "../utils/formatUtil";
+import {getVideos, getVideo, editVideo, uploadVideo, deleteVideo, searchVideos} from "../models/videoModel"
 
-const testUser = {
-    username: "Soapunny",
-    loggedIn: true,
+export const getHome = async (req, res) => {
+    try{
+        const videos = await getVideos();
+        res.render("home", {pageTitle: "Home", videos, toFormattedDate});
+    }catch {
+        return res.status(400).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
+    }
 }
 
-export const getHome = (req, res) => {
-    const videos = getVideos();
-    res.render("home", {pageTitle: "Home", testUser, videos});
-}
-export const getWatch = (req, res) => {
-    const videoId = req.params.id;
-    const video = getVideo(videoId);
-
-    res.render("watchVideo", {pageTitle: `Watching \"${video.title}\"`, testUser, videoId});
-}
-export const getEdit = (req, res) => 
-{
-    const videoId = req.params.id;
-    const video = getVideo(videoId);
-
-    res.render("editVideo", {pageTitle: `Edit \"${video.title}\"`, video});
+export const getWatch = async (req, res) => {
+    try{
+        const videoId = req.params.id;
+        const video = await getVideo(videoId);
+        if(!video.id){
+            throw new Error("Cannot find the video");
+        }
+        res.render("watchVideo", {pageTitle: video.title, video, toFullDate});
+    }catch(error){
+        return res.status(404).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
+    }
 }
 
-export const postEdit = (req, res) => {
-    const videoId = req.params.id;
-    const newVideo = new VideoDTO();
-    newVideo.setId(videoId);
-    newVideo.setTitle(req.body.title);
-    
-    editVideo(newVideo);
-    
-    res.redirect(`/video/${videoId}`);
+export const getEdit = async (req, res) => {
+    try{
+        const videoId = req.params.id;
+        const video = await getVideo(videoId);
+        if(!video.id)
+            throw new Error("Cannot find the video");
+
+        res.render("editVideo", {pageTitle: `Edit \"${video.title}\"`, video, removeHashtags});
+    }catch(error){
+        return res.status(404).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
+    }
 }
 
-export const getDelete = (req, res) => res.render("deleteVideo", {pageTitle: "Delete Video"});
+export const postEdit = async (req, res) => {
+    try{
+        const videoId = req.params.id;
+        const {title, description, hashtags} = req.body;
+        const dbVideo = editVideo(videoId, title, description, hashtags);
+        if(!dbVideo)
+            throw new Error("DB update failed!!");
+        
+        res.redirect(`/video/${videoId}`);
+    }catch(error){
+        return res.status(404).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
+    }
+}
+
 export const getUpload = (req, res) => {
     return res.render("uploadVideo", {pageTitle: "Upload Video"});
 }
-export const postUpload = (req, res) => {
+
+export const postUpload = async (req, res) => {
     //Add video to the video array
-    const newVideo = new VideoDTO();
-    newVideo.title = req.body.title;
-    uploadVideo(newVideo);
+    try{
+        const {title, description, hashtags } = req.body;//ES6.
+        await uploadVideo(title, description, hashtags);
+        return res.redirect("/");
+    }catch(error){
+        console.log(error.message);
+        return res.status(400).render(
+            "uploadVideo", 
+            {pageTitle: "Upload Video", 
+            errorMessage: error.message}
+        );
+    }
     
-    return res.redirect("/");
+}
+
+export const getDelete = async (req, res) => {
+    //TODO Delete video process
+    try{
+        const {id} = req.params;
+        await deleteVideo(id);
+        console.log("Deleted the video : "+id);
+        res.redirect("/");
+    }catch(error){
+        return res.status(400).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
+    }
+}
+
+export const getSearch = async(req, res) => {
+    try{
+        const {keyword} = req.query;
+        const videos = await searchVideos(keyword);
+        res.render("searchVideos", {pageTitle: `Search \"${keyword}\"`, videos, toFormattedDate});
+    }catch(error){
+        return res.status(400).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
+    }
 }

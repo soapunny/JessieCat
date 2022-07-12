@@ -2,7 +2,7 @@ doctype html
 html(lang="en")
     head 
         meta(name='viewport' content='width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes, initial-scale=1.0')
-        title #{pageTitle} | Jessie Cat
+        title #{pageTitle} | #{siteName}
         link(rel='stylesheet' href='https://unpkg.com/mvp.css')
         block cssLinks
     body
@@ -12,9 +12,9 @@ html(lang="en")
                     li 
                         a(href='/') Home
                     
-                    if testUser && testUser.loggedIn
-                        li Hello #{testUser.username}
-                    if testUser && testUser.loggedIn
+                    if login
+                        li
+                            a(href='/user/profile') #{userDTO.username}
                         li 
                             a(href='/logout') Logout
                         li
@@ -22,6 +22,8 @@ html(lang="en")
                     else
                         li
                             a(href='/login') Login
+                        li
+                            a(href='/join') Sign Up
             h1=pageTitle
         main
             block content

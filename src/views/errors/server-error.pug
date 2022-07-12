@@ -1,0 +1,7 @@
+extends ../partials/base
+
+block content 
+    h1 Cannot Find the Page.
+    if errorMessage
+        div=errorMessage
+    a(href='/') &larr; Go Home

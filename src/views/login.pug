@@ -1,0 +1,16 @@
+extends partials/base
+
+
+block content
+    form(method='get' action='/search')
+        input(name='keyword' type='text' placeholder='search' required)
+        input(type='submit' value='search')
+    div
+        h2=pageTitle 
+        if errorMessage
+            small=errorMessage
+        form(method='post')
+            input(name='email' value=email type='email' placeholder='Email' required)
+            input(name='password' value=password type='password' placeholder='Password' required)
+            input(type='submit' value='Sign In')
+    

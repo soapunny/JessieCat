@@ -1,32 +1,43 @@
+import VideoDBModel from "../dbModels/videoDBModel"
+
 class VideoDTO {
-    id = "";
-    title = "";
-    length = 0;
-    date = "";
-    like = 0;
-    view = 0;
+    id = undefined
+    title = undefined
+    description = ""
+    date = undefined
+    hashtags = undefined
+    meta = undefined
 
-    constructor(id, title, length, date, like, view){
-        this.id = id;
-        this.title = title;
-        this.length = length;
-        this.date = date;
-        this.like = like;
-        this.view = view;
+    constructor(videoDBModel){
+        if(videoDBModel){
+            this.id = videoDBModel._id;
+            this.title = videoDBModel.title;
+            this.description = videoDBModel.description;
+            this.date = videoDBModel.date;
+            this.hashtags = videoDBModel.hashtags;
+            this.meta = videoDBModel.meta;
+        }
     }
-    setId = (id) => this.id = id;
-    setTitle = (title) => this.title = title;
-    setLength = (length) => this.length = length;
-    setDate = (date) => this.date = date;
-    setLike = (like) => this.like = like;
-    setView = (view) => this.view = view;
 
-    getId = () => {return this.id;}
-    getTitle = () => {return this.title;}
-    getLength = () => {return this.length;}
-    getdate = () => {return this.date;}
-    getLike = () => {return this.like;}
-    getView = () => {return this.view;}
+    toVideoDBModel = () => {
+        const id = this.id;
+        const title = this.title;
+        const description = this.description;
+        const date = this.date;
+        const hashtags = this.hashtags;
+        const meta = this.meta;
+
+        const videoDBModel = new VideoDBModel({
+            id,
+            title,
+            description,
+            date,
+            hashtags,
+            meta
+        });
+
+        return videoDBModel;
+    }
 }
 
 export default VideoDTO;

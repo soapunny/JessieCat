@@ -1,6 +1,16 @@
 extends partials/base
 
 
-block content 
-    h1 Video #{videoId}
-    a(href=`${videoId}/edit`) Edit Video &rarr;
+block content
+    div
+        h3=video.description
+        small Uploaded date: #{toFullDate(video.date)}
+        div
+            small view: #{video.meta.view} &emsp;
+            small like: #{video.meta.like}
+        small HashTags: #{video.hashtags}
+    hr
+    div
+        a(href=`${video.id}/edit`) Edit Video &rarr;
+        br
+        a(href=`${video.id}/delete`) Delete Video &rarr;

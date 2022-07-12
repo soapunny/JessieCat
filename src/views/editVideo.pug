@@ -5,6 +5,9 @@ extends partials/base
 block content 
     h1 Edit Video
     form(method="POST")
-        input(name="title" type="text" placeholder="Video Title" value=video.title required)
+        input(name='title' type='text' placeholder='Title' maxLength='80' value=video.title required)
+        input(name='description' type='text' placeholder='description' maxLength='200' value=video.description)
+        input(name='hashtags' type='text' placeholder='hashtags, separated by comma' value=removeHashtags(video.hashtags))
+        input(name='file' type='file')
         input(type="submit" value="Edit")
         a(href=`/video/${video.id}`) &larr; back

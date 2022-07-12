@@ -1,44 +1,50 @@
 import VideoDTO from "../dto/videoDTO";
-import {SelectAllVideos} from "../dao/videoDAO";
+import { addHashtags } from "../utils/formatUtil";
+import {selectAllVideos, selectVideosByTitle, updateVideo, findOneAndUpdate, selectVideoById, findOneAndDelete} from "../dao/videoDAO";
 
-export const getVideos = () => {
-    return SelectAllVideos();
-}
-export const getVideo = (id) => {
-    let video = null;
+export const getVideos = async () => {
+    const videos = await selectAllVideos();
+    const videoDTOs = [];
     if(videos){
         for(let i=0;i<videos.length;i++){
-            if(videos[i].id === id){
-                video = videos[i];
-                break;
-            }
+            videoDTOs.push(new VideoDTO(videos[i]));
         }
     }
-    return video;
+    return videoDTOs;
+}
+export const getVideo = async (id) => {
+    const videoDBModel = await selectVideoById(id);
+    const videoDTO = await new VideoDTO(videoDBModel);
+    return videoDTO;
 }
 
-export const editVideo = (newVideo) => {
-    const video = null;
-    if(videos){
-        for(let i=0;i<videos.length;i++){
-            if(videos[i].id === newVideo.id){
-                videos[i].title = newVideo.title;
-                // videos[i].length = newVideo.length;
-                // videos[i].date = newVideo.date;
-                // videos[i].like = newVideo.like;
-                // videos[i].views = newVideo.views;
-                break;
-            }
+export const editVideo = (id, title, description, hashtags) => {
+    hashtags = addHashtags(hashtags);
+
+    const dbVideo = findOneAndUpdate(id, title, description, hashtags);
+    return dbVideo;
+}
+
+export const uploadVideo = (title, description, hashtags) => {
+    const newVideo = new VideoDTO();
+    newVideo.title = title;
+    newVideo.description = description;
+    newVideo.hashtags = addHashtags(hashtags);
+
+    updateVideo(newVideo.toVideoDBModel());
+}
+
+export const deleteVideo = (id) => {
+    findOneAndDelete(id);
+}
+
+export const searchVideos = async (keyword)=> {
+    const videoDBModels = await selectVideosByTitle(keyword);
+    const videoDTOs = [];
+    if(videoDBModels){
+        for(let i=0;i<videoDBModels.length;i++){
+            videoDTOs.push(new VideoDTO(videoDBModels[i]));
         }
     }
-}
-
-export const uploadVideo = (newVideo) => {
-    newVideo.id = `${videoId++}v`;
-    newVideo.length = Math.floor(Math.random()*1000);
-    newVideo.date = `${String(new Date().getMonth()+1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2, '0')}-${new Date().getFullYear()}`;
-    newVideo.like = 0;
-    newVideo.view = 0;
-
-    videos.push(newVideo);
+    return videoDTOs;
 }
