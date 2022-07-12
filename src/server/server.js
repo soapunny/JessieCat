@@ -3,7 +3,6 @@ import express, { request, response } from "express";
 import session from "express-session";
 //npm i connect-mongo
 import MongoStore from "connect-mongo";
-import { getMongoDBURL } from "../privacy/dbInfo";
 import morgan from "morgan";
 import { localsMiddleware } from "../middlewares/middlewares";
 import rootRouter from "../routers/rootRouter";
@@ -20,10 +19,13 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views"); //Change process's current directory.
 app.use(express.urlencoded({extended: true})); //Make the express understand the Form-Data
 app.use(session({
-    secret: "Hello!",
+    secret: process.env.COOKIE_SECRET,
     resave: false,//Only remember someone who login
     saveUninitialized: false,
-    store: MongoStore.create({mongoUrl: getMongoDBURL()}),//Save session in MongoDB
+    cookie: {
+        maxAge: 20000,
+    },
+    store: MongoStore.create({mongoUrl: process.env.MONGO_DB_URL}),//Save session in MongoDB
 }));//use session middleware before routers.
 
 app.use(localsMiddleware);

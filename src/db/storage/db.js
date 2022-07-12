@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
-import { getMongoDBPassword, getMongoDBURL } from "../../privacy/dbInfo";
 
-mongoose.connect(getMongoDBURL());
+mongoose.connect(process.env.MONGO_DB_URL);
 
 const db = mongoose.connection;
 db.on("error", (error) => console.log("DB Error: ", error));//on : everytime

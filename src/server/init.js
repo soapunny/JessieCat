@@ -1,3 +1,5 @@
+//npm i dotenv
+import "dotenv/config";//Must be started at first.
 import "../db/storage/db";
 import "../db/videoDBModel";
 import "../db/userDBModel";
