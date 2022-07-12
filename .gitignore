@@ -355,5 +355,8 @@ MigrationBackup/
 # privacy
 privacy/
 
+# env
+.env
+
 # scss
 scss/
