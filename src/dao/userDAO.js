@@ -1,4 +1,4 @@
-import UserDBModel from "../dbModels/userDBModel";
+import UserDBModel from "../db/userDBModel";
 
 export const updateUser = async (userDBModel) => {
     const userDB = await userDBModel.save();

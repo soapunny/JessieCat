@@ -1,9 +1,7 @@
 import mongoose from "mongoose";
-import { getMongoDBPassword } from "../privacy/password";
+import { getMongoDBPassword, getMongoDBURL } from "../../privacy/dbInfo";
 
-const DB_URL = `mongodb+srv://soapunny:${getMongoDBPassword()}@cluster0.mpn0d.mongodb.net/jessiecat?retryWrites=true&w=majority`;
-
-mongoose.connect(DB_URL);
+mongoose.connect(getMongoDBURL());
 
 const db = mongoose.connection;
 db.on("error", (error) => console.log("DB Error: ", error));//on : everytime

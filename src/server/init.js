@@ -1,6 +1,6 @@
-import "../storage/db";
-import "../dbModels/videoDBModel";
-import "../dbModels/userDBModel";
+import "../db/storage/db";
+import "../db/videoDBModel";
+import "../db/userDBModel";
 import app from "./server.js";
 
 const PORT = 12080;

@@ -1,4 +1,4 @@
-import VideoDBModel from "../dbModels/videoDBModel"
+import VideoDBModel from "../db/videoDBModel"
 
 class VideoDTO {
     id = undefined

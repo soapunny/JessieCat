@@ -1,4 +1,4 @@
-import UserDBModel from "../dbModels/userDBModel";
+import UserDBModel from "../db/userDBModel";
 
 class UserDTO {
     email = undefined
