@@ -360,3 +360,6 @@ privacy/
 
 # scss
 scss/
+
+# upload
+/upload
