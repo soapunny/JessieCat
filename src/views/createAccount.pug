@@ -1,10 +1,6 @@
-extends partials/base
-
+extends base
 
 block content
-    form(method='get' action='/search')
-        input(name='keyword' type='text' placeholder='search' required)
-        input(type='submit' value='search')
     div
         h2=pageTitle 
         form(method='post')
@@ -21,4 +17,6 @@ block content
             input(name='name' value=name type='text' placeholder='*Name' required)
             input(name='location' value=location type='text' placeholder='Location')
             input(type='submit' value='Join')
+            hr
+            a(href=`/user/github/login`) Continue with Github &rarr;
     

@@ -23,7 +23,7 @@ app.use(session({
     resave: false,//Only remember someone who login
     saveUninitialized: false,
     cookie: {
-        maxAge: 20000,
+        maxAge: 1000 * 60 * 30,
     },
     store: MongoStore.create({mongoUrl: process.env.MONGO_DB_URL}),//Save session in MongoDB
 }));//use session middleware before routers.

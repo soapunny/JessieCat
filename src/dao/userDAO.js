@@ -9,6 +9,17 @@ export const findUserByEmail = async (email) => {
     return await UserDBModel.findOne({email});
 }
 
+export const findUserByEmailAndUpdate = async (email, update) => {
+    const filter = {email};
+    return await UserDBModel.findOneAndUpdate(filter, update, {new: true});
+}
+export const findUserByEmailAndUpdatePassword = async (email, password) => {
+    const filter = {email};
+    const hashedPassword = await UserDBModel.hashPassword(password);
+    const update = {password: hashedPassword}
+    return await UserDBModel.findOneAndUpdate(filter, update, {new: true});
+}
+
 export const findUserByEmailAndPassword = async (email, password) => {
     const userDBModel = await findUserByEmail(email);
     let isSame = false;

@@ -1,11 +1,8 @@
-extends partials/base
+extends base
 include mixins/video
 
 
 block content
-    form(method='get')
-        input(name='keyword' type='text' placeholder='search' required)
-        input(type='submit' value='search')
     if videos
         each video, index in videos
             +video(video, index)

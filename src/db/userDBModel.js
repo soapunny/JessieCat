@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
     email: {type: String, required: true, unique: true},
+    githubId: {type: Number},
+    avatarUrl: {type: String},
     username: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     name: {type: String, required: true},
@@ -19,6 +21,11 @@ userSchema.pre('save', async function() {
 userSchema.static("comparePassword", async (password, hashedPassword) => {
     return await bcrypt.compare(password, hashedPassword);
 });
+
+userSchema.static("hashPassword", async (password) => {
+    return await bcrypt.hash(password, 5);
+});
+
 
 const UserDBModel = mongoose.model('User', userSchema);
 

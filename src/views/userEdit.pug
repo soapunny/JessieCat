@@ -1,0 +1,19 @@
+extends base
+
+
+block content
+    div
+        h2=pageTitle 
+        form(method='post' enctype='multipart/form-data')
+            input(name='email' value=userDTO.email type='email' placeholder='*Email(aaa@gmail.com)' disabled)
+            input(name='username' value=userDTO.username type='text' placeholder='*Username' required)
+            if duplicateUsername
+                small *Duplicate Username.
+            input(name='name' value=userDTO.name type='text' placeholder='*Name' required)
+            input(name='location' value=userDTO.location type='text' placeholder='Location')
+            if !userDTO.githubId
+                label Avatar
+                input(name="avatar" id='avatar' type='file' accept='image/*')
+            input(type='submit' value='Edit')
+        if !userDTO.githubId
+            a(href='/user/changePassword') Change password &rarr;
