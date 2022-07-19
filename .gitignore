@@ -358,9 +358,6 @@ privacy/
 # env
 .env
 
-# scss
-scss/
-
 # upload
 /upload
 
