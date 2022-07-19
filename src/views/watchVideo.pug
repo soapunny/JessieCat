@@ -3,14 +3,21 @@ extends base
 
 block content
     div
+        video(src=video.videoUrl autoplay=true controls=true)
+        h2=video.title
+        a(href=`/user/profile/${video.owner.username}`) #{video.owner.username}
+    div
         h3=video.description
-        small Uploaded date: #{toFullDate(video.date)}
+        small Uploaded date: #{formatUtil.toFullDate(video.date)}
         div
             small view: #{video.meta.view} &emsp;
             small like: #{video.meta.like}
-        small HashTags: #{video.hashtags}
+        ul
+            each hashtag in video.hashtags
+                li=hashtag
     hr
     div
-        a(href=`${video.id}/edit`) Edit Video &rarr;
-        br
-        a(href=`${video.id}/delete`) Delete Video &rarr;
+        if userDTO && (String(video.owner._id) === userDTO._id)
+            a(href=`/video/${video._id}/edit`) Edit Video &rarr;
+            br
+            a(href=`/video/${video._id}/delete`) Delete Video &rarr;

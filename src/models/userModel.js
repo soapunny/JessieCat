@@ -1,39 +1,59 @@
-import { isExistsTypeAnnotation } from "@babel/types";
 //npm i node-fetch@2 -> to use fetch in nodejs
 import fetch from "node-fetch";//TODO Fix the import problem
-import { updateUser, findUserByEmailAndUpdate, findUserByEmailAndUpdatePassword, findUserByEmail, findUserByEmailAndPassword, doesEmailExist, doesUsernameExist, doesUserExist } from "../dao/userDAO"
+import { saveUser, findUserByFilter, findUserByEmailAndPassword, findUserByFilterAndUpdate, doesEmailExist, doesUsernameExist, saveVideosInUser, removeVideoInUser } from "../dao/userDAO"
+import UserDBModel from "../db/userDBModel";
 import UserDTO from "../dto/userDTO";
 
 
-export const joinUser = async (userDTO) => {
-    await updateUser(userDTO.toUserDBModel());
+export const joinUser = async (email, username, password, name, location, needVideos) => {
+    const userDTO = new UserDTO();
+    userDTO.email = email;
+    userDTO.username = username;
+    userDTO.password =  password;
+    userDTO.name = name;
+    userDTO.location = location;
+    await saveUser(userDTO.toUserDBModel(), needVideos);
 }
 
-export const editUser = async (email, username, name, location, avatarUrl) => {
-    const userDBModel = await findUserByEmailAndUpdate(email, {username, name, location, avatarUrl});
+export const joinGithubUser = async (userDTO, needVideos) => {
+    const userDBModel = await saveUser(userDTO.toUserDBModel(), needVideos);
+    if(userDBModel)
+        return new UserDTO(userDBModel);
+    return undefined;
+}
+
+export const login = async (email, password, needVideos) => {
+    const userDBModel = await findUserByEmailAndPassword(email, password, needVideos);
+    if(userDBModel)
+        return new UserDTO(userDBModel);
+    return undefined;
+}
+
+export const editUser = async (email, username, name, location, avatarUrl, needVideos) => {
+    const userDBModel = await findUserByFilterAndUpdate({email}, {username, name, location, avatarUrl}, needVideos);
     return new UserDTO(userDBModel);
 }
 
-export const login = async (email, password) => {
-    const userDBModel = await findUserByEmailAndPassword(email, password);
+export const getUserByEmail = async(email, needVideos) => {
+    const userDBModel = await findUserByFilter({email}, needVideos);
     if(userDBModel)
         return new UserDTO(userDBModel);
     return undefined;
 }
 
-export const getUserByEmail = async(email) => {
-    const userDBModel = await findUserByEmail(email);
+export const getUserByUsername = async(username, needVideos) => {
+    const userDBModel = await findUserByFilter({username}, needVideos);
     if(userDBModel)
         return new UserDTO(userDBModel);
     return undefined;
 }
 
-export const checkEmail = async(email) => {
-    return await doesEmailExist(email);
+export const checkEmail = async(email, needVideos) => {
+    return await doesEmailExist(email, needVideos);
 }
 
-export const checkUsername = async(username) => {
-    return await doesUsernameExist(username);
+export const checkUsername = async(username, needVideos) => {
+    return await doesUsernameExist(username, needVideos);
 }
 
 export const getGithubEmail = async(code) => {
@@ -91,20 +111,38 @@ export const getGithubEmail = async(code) => {
     return userDTO;
 }
 
-export const updateAvatar = async (email, avatarUrl) => {
-    return await findUserByEmailAndUpdate(email, {avatarUrl});
+export const updateAvatar = async (email, avatarUrl, needVideos) => {
+    return await findUserByFilterAndUpdate({email}, {avatarUrl}, needVideos);
 }
 
-export const checkUser = async (email, password) => {
-    const userDBModel = await findUserByEmailAndPassword(email, password);
+export const checkUser = async (email, password, needVideos) => {
+    const userDBModel = await findUserByEmailAndPassword(email, password, needVideos);
     if(userDBModel)
         return true;
     return false; 
 }
 
-export const updatePassword = async (email, password) => {
-    const userDBModel = await findUserByEmailAndUpdatePassword(email, password);
+export const updatePassword = async (email, password, needVideos) => {
+    const filter = {email};
+    const hashedPassword = await UserDBModel.hashPassword(password);
+    const update = {password: hashedPassword}
+    const userDBModel = await findUserByFilterAndUpdate(filter, update, needVideos);
     if(userDBModel)
         return new UserDTO(userDBModel);
+    return undefined;
+}
+
+
+export const updateVideosInUser = async (userId, videoId, needVideos) => {
+    const updatedUser = await saveVideosInUser(userId, videoId, needVideos);
+    if(updatedUser)
+        return new UserDTO(updatedUser);
+    return undefined;
+}
+
+export const deleteVideoInUser = async (userId, videoId, needVideos) => {
+    const updatedUser = await removeVideoInUser(userId, videoId, needVideos);
+    if(updatedUser)
+        return new UserDTO(updatedUser);
     return undefined;
 }

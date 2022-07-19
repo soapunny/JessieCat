@@ -1,10 +1,19 @@
+
 mixin video(video, index)
     div 
         h3 
-            a(href=`/video/${video.id}`) #{index+1}. #{video.title}
+            a(href=`/video/${video._id}`) #{index+1}. #{video.title}
+        video(src=video.videoUrl)
         h4=video.description
-        div=toFormattedDate(video.date)
-        ul
-            each hashtag in video.hashtags
-                li=hashtag
+        a(href=`/user/profile/${video.owner.username}`)=video.owner.username
+        hr
+
+        
+mixin userVideo(video, index, username)
+    div 
+        h3 
+            a(href=`/video/${video._id}`) #{index+1}. #{video.title}
+        video(src=video.videoUrl)
+        h4=video.description
+        a(href=`/user/profile/${username}`)=username
         hr

@@ -1,18 +1,22 @@
 import VideoDBModel from "../db/videoDBModel"
 
 class VideoDTO {
-    id = undefined
+    _id = undefined
+    videoUrl = undefined
     title = undefined
     description = ""
+    owner = undefined
     date = undefined
     hashtags = undefined
     meta = undefined
 
     constructor(videoDBModel){
         if(videoDBModel){
-            this.id = videoDBModel._id;
+            this._id = videoDBModel._id;
+            this.videoUrl = videoDBModel.videoUrl;
             this.title = videoDBModel.title;
             this.description = videoDBModel.description;
+            this.owner = videoDBModel.owner;
             this.date = videoDBModel.date;
             this.hashtags = videoDBModel.hashtags;
             this.meta = videoDBModel.meta;
@@ -20,17 +24,21 @@ class VideoDTO {
     }
 
     toVideoDBModel = () => {
-        const id = this.id;
+        const _id = this._id;
+        const videoUrl = this.videoUrl;
         const title = this.title;
         const description = this.description;
+        const owner = this.owner;
         const date = this.date;
         const hashtags = this.hashtags;
         const meta = this.meta;
 
         const videoDBModel = new VideoDBModel({
-            id,
+            _id,
+            videoUrl,
             title,
             description,
+            owner,
             date,
             hashtags,
             meta

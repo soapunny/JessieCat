@@ -1,47 +1,37 @@
 import VideoDBModel from "../db/videoDBModel";
 
-//Call back method **Old
-// export const SelectAllVideos = () => {
-    
-//     VideoDBModel.find({}, (error, videos) => {// {}: find everything.
-//         if(error)
-//             console.log("VideoDB Error: "+error);
-//         return videos;
-//     });
-//}
-
-//Promise: async await method ***New
-export const selectAllVideos = async () => {
-    const videoDBModels = await VideoDBModel.find({}).sort({date:"desc"});
-    return videoDBModels;
+export const findAllVideos = async (needOwner) => {
+    if(needOwner)
+        return await VideoDBModel.find({}).populate("owner").sort({date:"desc"});
+    return await VideoDBModel.find({}).sort({date:"desc"});
 }
 
-export const selectVideoById = async (id) => {
-    const videoDBModel = await VideoDBModel.findById(id);
-    return videoDBModel;
+export const findVideosByFilter = async (filter, needOwner) => {
+    if(needOwner)
+        return await VideoDBModel.find(filter).populate("owner").sort({date:"desc"});
+    return await VideoDBModel.find(filter).sort({date:"desc"});
 }
 
-export const updateVideo = async (videoDBModel) => {
-    const dbVideo = await videoDBModel.save();
-    console.log("Updated : "+dbVideo);
+export const findVideoById = async (_id, needOwner) => {
+    if(needOwner)
+        return await VideoDBModel.findById(_id).populate("owner");
+    return await VideoDBModel.findById(_id);
 }
 
-export const findOneAndUpdate = async (id, title, description, hashtags) => {
-    const filter = VideoDBModel.getFilterById(id);
-    const update = {title,description,hashtags};
-    const dbVideo = await VideoDBModel.findOneAndUpdate(filter, update, {new: true});
-    console.log("Updated : "+dbVideo);
-
-    return dbVideo;
+export const saveVideo = async (videoDBModel, needOwner) => {
+    const savedVideo = await videoDBModel.save();
+    if(needOwner){
+        return await findVideoById(savedVideo._id, needOwner);
+    }
+    return savedVideo;
 }
 
-export const findOneAndDelete = async (id) => {
-    //short cut of findOneAndDelete()
-    const dbVideo = await VideoDBModel.findByIdAndDelete(id);
+export const findOneByFilterAndUpdate = async (filter, update, needOwner) => {
+    if(needOwner)
+        return await VideoDBModel.findOneAndUpdate(filter, update, {new: true}).populate('owner');
+    return await VideoDBModel.findOneAndUpdate(filter, update, {new: true});
 }
 
-export const selectVideosByTitle = async (keyword) => {
-    const filter = {title:{$regex:new RegExp(keyword, "i")}};// i: ignore lower/upper case
-    const videoDBModels = await VideoDBModel.find(filter);
-    return videoDBModels;
+export const findOneByIdAndDelete = async (_id) => {
+    return await VideoDBModel.findByIdAndDelete(_id);
 }

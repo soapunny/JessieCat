@@ -1,18 +1,14 @@
-import { logicalExpression } from "@babel/types";
-import session from "express-session";
-import UserDTO from "../dto/userDTO";
-import { joinUser, login, checkUser, editUser, updateAvatar, checkEmail, checkUsername, getUserByEmail, getGithubEmail, updatePassword } from "../models/userModel";
+import { joinUser, login, checkUser, editUser, updateAvatar, checkEmail, checkUsername, getUserByEmail, getGithubEmail, updatePassword, getUserByUsername, joinGithubUser } from "../models/userModel";
 
 export const getJoin = (req, res) => {
     res.render("createAccount", {pageTitle: "Sign Up"});
 }
+
 export const postJoin = async (req, res) => {
     try{
         const {email, username, password, repassword, name, location} = req.body;
-        const emailExists = await checkEmail(email);
-        const usernameExists = await checkUsername(username);
-        const userDTO = new UserDTO();
-        userDTO.init(email, username, password, name, undefined, location);
+        const emailExists = await checkEmail(email, false);
+        const usernameExists = await checkUsername(username, false);
 
         if(password !== repassword){
             return res.status(400).render("createAccount", {pageTitle: "Sign Up", passwordError: true, email, username, password, name, location});
@@ -23,9 +19,9 @@ export const postJoin = async (req, res) => {
             return res.status(400).render("createAccount", {pageTitle: "Sign Up", duplicateUsername: true, email, username, password, name, location});
         }
 
-        await joinUser(userDTO);
+        await joinUser(email, username, password, name, location, false);
 
-        res.redirect("/login");
+        return res.redirect("/login");
     }catch(error){
         return res.status(400).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
     }
@@ -41,7 +37,7 @@ export const getLogin = (req, res) => {
 export const postLogin = async (req, res) => {
     try{
         const{email, password} = req.body;
-        const userDTO = await login(email, password);
+        const userDTO = await login(email, password, true);
         if(userDTO){
             req.session.login = true;
             req.session.userDTO = userDTO;
@@ -67,23 +63,34 @@ export const getGithubLogin = (req, res) => {
     const finalUrl = `${baseUrl}?${params.toString()}`;
     res.redirect(finalUrl);
 }
+
 export const getGithubCallback = async (req, res) => {
-    const userInfo = await getGithubEmail(req.query.code);
-    
-    if(!userInfo || !userInfo.email)
-        return res.redirect("/login");
-    
-    const userDTO = await getUserByEmail(userInfo.email);
-    if(userDTO && userDTO.githubId === userInfo.githubId){
-        const updatedUserDTO = await updateAvatar(userInfo.email, userInfo.avatarUrl);
-        req.session.login = true;
-        req.session.userDTO = updatedUserDTO;
-        res.redirect("/");
-    }else if(userDTO){
-        res.status(400).redirect("/login");
-    }else{
-        joinUser(userInfo);
-        res.redirect("/login");
+    try{
+        const {code} = req.query;
+        if(!code){
+            return res.redirect("/login");
+        }
+        const userInfo = await getGithubEmail(code);
+        
+        if(!userInfo || !userInfo.email)
+            return res.redirect("/login");
+        
+        const userDTO = await getUserByEmail(userInfo.email, false);
+        if(userDTO && userDTO.githubId === userInfo.githubId){
+            const updatedUserDTO = await updateAvatar(userInfo.email, userInfo.avatarUrl, true);
+            req.session.login = true;
+            req.session.userDTO = updatedUserDTO;
+            return res.redirect("/");
+        }else if(userDTO){
+            return res.status(400).redirect("/login");
+        }else{
+            const newUser = joinGithubUser(userInfo, false);
+            if(newUser)
+                return res.redirect("/login");
+            throw new Error("Error: The username doesn't exist.");
+        }
+    }catch(error){
+        return res.status(400).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
     }
 }
 //End Login with github
@@ -93,9 +100,14 @@ export const getLogout = (req, res) =>{
     res.redirect("/");
 }
 
-export const getProfile = (req, res) => {
+export const getProfile = async (req, res) => {
     try{
-        res.render("userProfile", {pageTitle: "Profile"});
+        const {username} = req.params;
+        const user = await getUserByUsername(username, true);
+        if(user){
+            return res.render("userProfile", {pageTitle: user.username, user});
+        }else
+            throw new Error("Error: The username doesn't exist.");
     }catch(error){
         return res.status(404).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
     }
@@ -103,34 +115,37 @@ export const getProfile = (req, res) => {
 
 export const getEdit = (req, res) => {
     try{
-        res.render("userEdit", {pageTitle: "Edit profile"});
+        return res.render("userEdit", {pageTitle: "Edit profile"});
     }catch(error){
         return res.status(404).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
     }
 }
 
 export const postEdit = async (req, res) => {
-    const { email, avatarUrl } = req.session.userDTO;
-    const {username, name, location} = req.body;
-    const file = req.file;
+    try{
+        const { email, avatarUrl } = req.session.userDTO;
+        const { username, name, location } = req.body;
+        
+        const file = req.file;
+        const filePath = file ? `/${file.path}` : avatarUrl;
 
-    const filePath = file ? file.path : avatarUrl;
-
-    const originalUsername = req.session.userDTO.username;
-    if(originalUsername !== username){
-        const doesUsernameExists = await checkUsername(username);
-        if(doesUsernameExists){
-            return res.status(400).render("userEdit", {duplicateUsername: true});
+        const originalUsername = req.session.userDTO.username;
+        if(originalUsername !== username){
+            const doesUsernameExists = await checkUsername(username, false);
+            if(doesUsernameExists){
+                return res.status(400).render("userEdit", {duplicateUsername: true});
+            }
         }
-    }
 
-    const userDTO = await editUser(email, username, name, location, filePath);
-    if(userDTO){
-        req.session.login = true;
-        req.session.userDTO = userDTO;
-        return res.redirect("/user/edit");
-    }else{
-        return res.render("errors/server-error", {pageTitle: "Error", errorMessage: "Fail: User update"});
+        const userDTO = await editUser(email, username, name, location, filePath, true);
+        if(userDTO){
+            req.session.login = true;
+            req.session.userDTO = userDTO;
+            return res.redirect("/user/edit");
+        }
+        throw new Error("Error: User Edit Failed");
+    }catch(error){
+        return res.render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
     }
 }
 
@@ -144,14 +159,15 @@ export const getChangePassword = (req, res) => {
 export const postChangePassword = async (req, res) => {
     try{
         const {oldPassword, newPassword, newPassword2} = req.body;
-        const {email} = req.session.userDTO;
+        const {email, githubId} = req.session.userDTO;
+        
         if(newPassword !== newPassword2){
             //TODO send a duplicate password message
             return res.status(400).render("changePassword", {pageTitle: "Change Password", errorMsg: "#Passwords do not match"});
         }
-        const exist = await checkUser(email, oldPassword);
+        const exist = await checkUser(email, oldPassword, false);
         if(exist){
-            const newUserDTO = await updatePassword(email, newPassword);
+            const newUserDTO = await updatePassword(email, newPassword, false);
             if(!newUserDTO || !(newUserDTO.email)){
                 throw new Error("Error: Change-password failed");
             }
@@ -166,5 +182,7 @@ export const postChangePassword = async (req, res) => {
 }
 
 export const getDelete = (req, res) => {
-    res.send("User Delete");
+    //TDOO make code for "User Delete";
+    return res.redirect("/user/logout");
 }
+

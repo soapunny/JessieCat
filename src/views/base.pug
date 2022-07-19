@@ -16,7 +16,7 @@ html(lang="en")
                         li
                             if userDTO && userDTO.avatarUrl
                                 img(src=userDTO.avatarUrl width='50px' height='50px')
-                            a(href='/user/profile') #{userDTO.username}
+                            a(href=`/user/profile/${userDTO.username}`) #{userDTO.username}
                         li 
                             a(href='/user/logout') Logout
                         li

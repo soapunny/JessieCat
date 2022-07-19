@@ -10,6 +10,7 @@ class UserDTO {
     name = undefined
     joinDate = undefined
     location = undefined
+    videos = undefined
 
     constructor(userDBModel){
         if(userDBModel){
@@ -22,18 +23,9 @@ class UserDTO {
             this.name = userDBModel.name;
             this.joinDate = userDBModel.joinDate;
             this.location = userDBModel.location;
+            this.videos = userDBModel.videos;
         }
     }
-
-    init(email, username, password, name, joinDate, location){
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.joinDate = joinDate;
-        this.location = location;
-    }
-
 
     toUserDBModel = () => {
         const email = this.email;
@@ -44,6 +36,7 @@ class UserDTO {
         const name = this.name;
         const joinDate = this.joinDate;
         const location = this.location;
+        const videos = this.videos;
 
         const userDBModel = new UserDBModel({
             email,
@@ -53,7 +46,8 @@ class UserDTO {
             password,
             name,
             joinDate,
-            location
+            location,
+            videos
         });
 
         return userDBModel;

@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 
 const videoSchema = new mongoose.Schema({
-    id: String,
+    videoUrl: {type: String, required: true, trim: true},
     title: {type: String, required: true, trim: true, maxLength: 80},
     description: {type: String, trim: true, maxLength: 200},
+    owner: {type: mongoose.Schema.Types.ObjectId, required: true, trim: true, ref: 'User'},
     date: {type: Date, required: true, default: Date.now },
     hashtags: [{type: String, trim: true}],
     meta: {
@@ -15,11 +16,6 @@ const videoSchema = new mongoose.Schema({
 //middleware
 videoSchema.pre('save', async function(){
     //console.log(this);
-});
-
-//static method
-videoSchema.static("getFilterById", (id) => {
-    return {_id: id};
 });
 
 const VideoDBModel = mongoose.model("Video", videoSchema);

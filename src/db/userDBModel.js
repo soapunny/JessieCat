@@ -10,12 +10,15 @@ const userSchema = new mongoose.Schema({
     name: {type: String, required: true},
     joinDate: {type: Date, required: true, default: Date.now},
     location: String,
+    videos: [{type: mongoose.Schema.Types.ObjectId, ref: 'Video'}],
 });
 
 userSchema.pre('save', async function() {
     //npm i bcrypt : install bcrypt to hash password
     //it protect hashed-password from "rainbow table" attack.
-    this.password = await bcrypt.hash(this.password, 5);
+    if(this.isModified("password")){//Only when the passwor is modified.
+        this.password = await bcrypt.hash(this.password, 5);
+    }
 });
 
 userSchema.static("comparePassword", async (password, hashedPassword) => {

@@ -5,7 +5,7 @@ import { loginOnlyMiddleware, logoutOnlyMiddleware, acceptImageFiles } from "../
 const userRouter = express.Router();
 
 userRouter.get("/logout", loginOnlyMiddleware, getLogout);
-userRouter.get("/profile", loginOnlyMiddleware, getProfile);
+userRouter.get("/profile/:username", loginOnlyMiddleware, getProfile);
 userRouter.route("/edit")
             .all(loginOnlyMiddleware)
             .get(getEdit)

@@ -12,7 +12,7 @@ block content
             input(name='name' value=userDTO.name type='text' placeholder='*Name' required)
             input(name='location' value=userDTO.location type='text' placeholder='Location')
             if !userDTO.githubId
-                label Avatar
+                label(for='avatar') Avatar( File size has to be under 1MB. )
                 input(name="avatar" id='avatar' type='file' accept='image/*')
             input(type='submit' value='Edit')
         if !userDTO.githubId

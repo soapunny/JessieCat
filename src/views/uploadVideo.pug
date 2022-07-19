@@ -6,10 +6,11 @@ block content
     h1 upload new video!
     if errorMessage
         span=errorMessage
-    form(method='post')
+    form(method='post' enctype='multipart/form-data')
+        label(for='video') Video( File size has to be under 10MB)
+        input(name='video' type='file' accept='video/*' id='video' required)
         input(name='title' type='text' placeholder='Title' maxLength='80' required)
         input(name='description' type='text' placeholder='description' maxLength='200')
         input(name='hashtags' type='text' placeholder='hashtags, separated by comma')
-        input(name='file' type='file')
         input(type='submit' value='Save')
     a(href='/') &larr; Go Home

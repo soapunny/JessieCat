@@ -1,50 +1,86 @@
 import VideoDTO from "../dto/videoDTO";
-import { addHashtags } from "../utils/formatUtil";
-import {selectAllVideos, selectVideosByTitle, updateVideo, findOneAndUpdate, selectVideoById, findOneAndDelete} from "../dao/videoDAO";
+import FormatUtil from "../utils/formatUtil";
+import {findAllVideos, findVideosByFilter, findVideoById, saveVideo, findOneByFilterAndUpdate, findOneByIdAndDelete} from "../dao/videoDAO";
 
-export const getVideos = async () => {
-    const videos = await selectAllVideos();
-    const videoDTOs = [];
+export const getVideos = async (needOwner) => {
+    const videos = await findAllVideos(needOwner);
     if(videos){
+        const videoDTOs = [];
         for(let i=0;i<videos.length;i++){
             videoDTOs.push(new VideoDTO(videos[i]));
         }
+        return videoDTOs;
     }
-    return videoDTOs;
-}
-export const getVideo = async (id) => {
-    const videoDBModel = await selectVideoById(id);
-    const videoDTO = await new VideoDTO(videoDBModel);
-    return videoDTO;
+    return undefined;
 }
 
-export const editVideo = (id, title, description, hashtags) => {
-    hashtags = addHashtags(hashtags);
-
-    const dbVideo = findOneAndUpdate(id, title, description, hashtags);
-    return dbVideo;
+export const getVideosByOwner = async (owner, needOwner) => {
+    const videos = await findVideosByFilter({owner}, needOwner);
+    if(videos){
+        const videoDTOs = [];
+        if(videos){
+            for(let i=0;i<videos.length;i++){
+                videoDTOs.push(new VideoDTO(videos[i]));
+            }
+        }
+        return videoDTOs;
+    }
+    return undefined;
 }
 
-export const uploadVideo = (title, description, hashtags) => {
+export const getVideo = async (_id, needOwner) => {
+    const videoDBModel = await findVideoById(_id, needOwner);
+    if(videoDBModel)
+        return new VideoDTO(videoDBModel);
+    return undefined;
+}
+
+export const editVideo = async (_id, videoUrl, title, description, hashtags, needOwner) => {
+    hashtags = new FormatUtil().addHashtags(hashtags);
+
+    const dbVideo 
+        = videoUrl ? await findOneByFilterAndUpdate({_id}, {title, description, hashtags}, needOwner)
+        : await findOneByFilterAndUpdate({_id}, {videoUrl, title, description, hashtags}, needOwner);
+    if(dbVideo)
+        return new VideoDTO(dbVideo);
+    return undefined;
+}
+
+export const uploadVideo = async (videoUrl, title, description, _id, hashtags, needOwner) => {
     const newVideo = new VideoDTO();
+    newVideo.videoUrl = videoUrl;
     newVideo.title = title;
     newVideo.description = description;
-    newVideo.hashtags = addHashtags(hashtags);
+    newVideo.owner = _id;
+    newVideo.hashtags = new FormatUtil().addHashtags(hashtags);
 
-    updateVideo(newVideo.toVideoDBModel());
+    const uploadedVideo = await saveVideo(newVideo.toVideoDBModel(), needOwner);
+    if(uploadedVideo)
+        return new VideoDTO(uploadedVideo);
+    return undefined;
 }
 
-export const deleteVideo = (id) => {
-    findOneAndDelete(id);
+export const deleteVideo = async (_id) => {
+    return await findOneByIdAndDelete(_id);
 }
 
-export const searchVideos = async (keyword)=> {
-    const videoDBModels = await selectVideosByTitle(keyword);
-    const videoDTOs = [];
-    if(videoDBModels){
+export const searchVideos = async (keyword, needOwner)=> {
+    const filter = {title: {$regex: new RegExp(keyword, "i")}};// i: ignore lower/upper case
+    const videoDBModels = await findVideosByFilter(filter, needOwner);
+    if(videoDBModels && videoDBModels.length >= 1){
+        const videoDTOs = [];
         for(let i=0;i<videoDBModels.length;i++){
             videoDTOs.push(new VideoDTO(videoDBModels[i]));
         }
+        return videoDTOs;
     }
-    return videoDTOs;
+    return undefined;
+}
+
+export const doesVideoExist = async (_id, needOwner) => {
+    const videoDBModel = await findVideoById(_id, needOwner);
+    if(videoDBModel){
+        return new VideoDTO(videoDBModel);
+    }
+    return undefined;
 }
