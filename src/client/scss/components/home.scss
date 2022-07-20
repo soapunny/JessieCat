@@ -1,0 +1,94 @@
+main{
+    padding-top: 11vh;
+    padding-bottom: 5vh;
+    padding-left: 10vw;
+    .videoSection{
+        width: 100%;
+        display: grid;
+        grid-template-rows: 10vh repeat(auto, 80vh);
+        grid-template-columns: 90vw;
+        .videoSectionTitleArea{
+            width: 90vw;
+            .videoSectionTitle{
+                background-color: $main_font_color;
+                color: white;
+                font-size: 2rem;
+            }
+            align-self: center;
+            justify-self:left;
+        }
+        .videoArticle{
+            height: 100%;
+            width: 80vw;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+            div{
+                height: 80vh;
+                width: 100%;
+                display: grid;
+                grid-template-rows: 10% 10% 70% 5% 5%;
+                grid-template-columns: 80vw;
+                align-items: center;
+                .ownerInfo{
+                    display: flex;
+                    align-items: center;
+                    .ownerAvatar{
+                        width: 2rem;
+                        height: 2rem;
+                    }
+                    .ownername{
+                        padding-left: 0.5rem;
+                        color: $username_color;
+                        font-size: $user_font_size;
+                        font-weight: bold;
+                        opacity: 1.0;
+                        &:hover{
+                            color: $username_hover_color
+                        }
+                    }
+                }
+                .title{
+                    font-size: 1.2rem;
+                    align-self: center;
+                    font-weight: bold;
+                }
+                .video{
+                    width: 100%;
+                    height: 100%;
+                    background-color: black;
+                }
+                .likeComment{
+                    display:flex;
+                    font-size: 1.5rem;
+                    
+                    .like{
+                        padding-right: 1rem;
+                    }
+                    .comment{
+                    }
+                }
+                .descriptionHashtags{
+                    align-self: center;
+                    display:flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    align-items: center;
+
+                    .description{
+                        padding-right: 1rem;
+                    }
+                    .hashtag{
+                        padding-left: 0.5rem;
+                    }
+                }
+            }
+            border-bottom-width: $videoArticle_border_bottom_width;
+            border-bottom-style: $videoArticle_border_bottom_style;
+            border-bottom-color: $videoArticle_border_bottom_color;
+        }
+    }
+}

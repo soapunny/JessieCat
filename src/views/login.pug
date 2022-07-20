@@ -1,14 +1,17 @@
 extends base
 
-
 block content
-    div
-        h2=pageTitle 
-        if errorMessage
-            small=errorMessage
-        form(method='post')
-            input(name='email' value=email type='email' placeholder='Email' required)
-            input(name='password' value=password type='password' placeholder='Password' required)
-            input(type='submit' value='Sign In')
-            hr
-            a(href=`/user/github/login`) Continue with Github &rarr;
+    div.loginFrame
+        h2.pagetitle #{pageTitle}
+        div.loginForm
+            small.errorMessage=errorMessage
+            form(method='post')
+                input(name='email' value=email type='email' placeholder='Email' required).email
+                input(name='password' value=password type='password' placeholder='Password' required).password
+                input(type='submit' value='Sign in').submit
+                div
+                    a(href=`/user/github/login`).githubLogin
+                        i.fab.fa-github  Continue with Github
+                div
+                    a(href=`#`).googleLogin
+                        i.fab.fa-google  Continue with Google

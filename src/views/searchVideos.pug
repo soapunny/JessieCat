@@ -3,10 +3,16 @@ include mixins/video
 
 
 block content
-    if videos
-        each video, index in videos
-            +video(video, index)
+    section.videoSection
+        div.videoSectionTitleArea
+            h2.videoSectionTitle
+                <i class="fa-solid fa-magnifying-glass"> #{pageTitle}</i> 
+        if videos
+            each video in videos
+                +video(video)
+            else
+                div.noVideo
+                    h2 Sorry, No Result.
         else
-            h2 Sorry, No Result.
-    else
-        h2 Sorry, No Result.
+            div.noVideo
+                h2.noVideo Sorry, No Result.

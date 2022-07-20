@@ -11,8 +11,8 @@ block content
     div
         h3 #{user.username}'s videos
         if user.videos
-            each video, index in user.videos
-                +userVideo(video, index, user.username)
+            each video in user.videos
+                +userVideo(video, user.username)
             else 
                 div Sorry, No Result.
         else 

@@ -1,19 +1,40 @@
 
-mixin video(video, index)
-    div 
-        h3 
-            a(href=`/video/${video._id}`) #{index+1}. #{video.title}
-        video(src=video.videoUrl)
-        h4=video.description
-        a(href=`/user/profile/${video.owner.username}`)=video.owner.username
-        hr
+mixin video(video)
+    article.videoArticle
+        div
+            div.ownerInfo
+                img(src=video.owner.avatarUrl).ownerAvatar 
+                a(href=`/user/profile/${video.owner.username}` class='ownername') #{video.owner.username}
+                    
+            a(href=`/video/${video._id}`).title #{video.title}
+            video(src=video.videoUrl).video
+            div.likeComment
+                a(href=`#`).like
+                    <i class="fa-regular fa-heart"></i>
+                    <!--<i class="fa-solid fa-heart"></i>-->
+                a(href=`#`).comment
+                    <i class="fa-regular fa-comment"></i>
+            div.descriptionHashtags
+                h4(class='description')=video.description
+                each hashtag in video.hashtags
+                    a(href='#').hashtag #{hashtag}
 
         
-mixin userVideo(video, index, username)
-    div 
-        h3 
-            a(href=`/video/${video._id}`) #{index+1}. #{video.title}
-        video(src=video.videoUrl)
-        h4=video.description
-        a(href=`/user/profile/${username}`)=username
-        hr
+mixin userVideo(video, username)
+    article.videoArticle
+        div
+            div.ownerInfo
+                img(src=video.owner.avatarUrl).ownerAvatar 
+                a(href=`/user/profile/${username}` class='ownername')=username
+            
+            a(href=`/video/${video._id}`).title #{video.title}
+            video(src=video.videoUrl).video
+            div.likeComment
+                a(href=`#`).like
+                    i.fab.fa-heart
+                a(href=`#`).comment
+                    i.fab.fa-comment
+            div.descriptionHashtags
+                h4(class='description')=video.description
+                each hashtag in video.hashtags
+                    a(href='#').hashtag #{hashtag}

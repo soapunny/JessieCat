@@ -1,0 +1,84 @@
+header{
+    background-color: $bg_color;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    width: 100%;
+    height: 10vh;
+    nav{
+        height: 100%;
+        display: grid;
+        grid-template-columns: 2fr 1fr 2fr;
+        align-items: center;
+        .header_nav_left{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            font-weight: bold;
+            li{
+                .userInfo{
+                    display: flex;
+                    align-items: center;
+                    img{
+                        width: 2rem;
+                        height: 2rem;
+                    }
+                    .username{
+                        padding-left: 0.5rem;
+                        color: $username_color;
+                    }
+                }
+            }
+            
+        }
+        .header_nav_middle{
+            font-size: 1.2rem;
+            justify-self: center;
+            font-weight: bold;
+            .header_logo{
+                color:white;
+            }
+        }
+        .header_nav_right{
+            justify-self: right;
+            form{
+                .searchBox{
+                    width: 12rem;
+                    text-indent: 1rem;
+                    font-size: 1.2rem;
+                    border-radius: $border_radius;
+                    border-width: $border_width;
+                    border-style: solid;
+                    border-color: $border_color;
+                    background-color: black;
+                    outline: none;
+                    color: inherit;
+                    &:focus{
+                    }
+                }
+                .searchBtn{
+                    margin-left: 0.1rem;
+                    font-size: 1.2rem;
+                    border-radius: $border_radius;
+                    border-width: $border_width;
+                    border-style: solid;
+                    border-color: $border_color;
+                    color: inherit;
+                    background-color: black;
+                    &:hover{
+                        color: white;
+                        cursor: pointer;
+                        background-color: $border_color;
+                    }
+                }
+            }
+        }
+    }
+    
+    border-bottom-width: $border_width;
+    border-bottom-color: white;
+    border-bottom-style: solid;
+
+}

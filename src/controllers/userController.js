@@ -28,7 +28,7 @@ export const postJoin = async (req, res) => {
 }
 export const getLogin = (req, res) => {
     try{
-        res.render("login", {pageTitle: "Sign In"});
+        res.render("login", {pageTitle: "Sign in"});
     }catch(error){
         return res.status(404).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
     }

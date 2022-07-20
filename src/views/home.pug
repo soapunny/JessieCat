@@ -3,12 +3,14 @@ include mixins/video
 
 
 block content
-    h2 Trending Videos
-    hr
-    if videos
-        each video, index in videos
-            +video(video, index)
+    section.videoSection
+        div.videoSectionTitleArea
+            h2.videoSectionTitle
+                i.fab.fa-tumblr Trending Videos        
+        if videos
+            each video in videos
+                +video(video)
+            else 
+                div Sorry, No Result.
         else 
             div Sorry, No Result.
-    else 
-        div Sorry, No Result.

@@ -1,0 +1,25 @@
+nav 
+    ul.header_nav_left  
+        if login
+            li
+                div.userInfo
+                    if userDTO && userDTO.avatarUrl
+                        img(src=userDTO.avatarUrl)
+                    a(href=`/user/profile/${userDTO.username}`).username #{userDTO.username}
+            li 
+                a(href='/user/logout') Logout
+            li
+                a(href='/video/upload') Upload Video
+        else
+            li
+                a(href='/login') Login
+            li
+                a(href='/join') Signup
+    
+    div.header_nav_middle
+        a(href="/").header_logo 
+            i.fab.fa-yarn Jessie Cat
+    div.header_nav_right
+        form(method='get' action='/search')
+            input(name='keyword' type='text' placeholder='search' required).searchBox
+            input(type='submit' value='search').searchBtn

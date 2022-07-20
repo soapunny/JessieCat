@@ -1,0 +1,26 @@
+footer{
+    width: 100vw;
+    height: 20vh;
+    .footerArea{
+        padding-top: 5vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow-y: hidden;
+        .copyright{
+            position: absolute;
+            justify-self: center;
+            font-size: $copyrightSize;
+            font-weight: bold;
+            font-stretch: ultra-expanded;
+            background-color: $bg_color;
+        }
+        .footerImg{
+            width: 100%;
+            margin-bottom: -50%;
+            z-index: -50;
+        }
+    }
+
+}

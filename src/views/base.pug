@@ -3,32 +3,14 @@ html(lang="en")
     head 
         meta(name='viewport' content='width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes, initial-scale=1.0')
         title #{pageTitle} | #{siteName}
-        link(rel='stylesheet' href='https://unpkg.com/mvp.css')
+        link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css')
         link(rel='stylesheet' href='/static/css/styles.css')
         block cssLinks
     body
         header
-            nav 
-                ul 
-                    li 
-                        a(href='/') Home
-                    
-                    if login
-                        li
-                            if userDTO && userDTO.avatarUrl
-                                img(src=userDTO.avatarUrl width='50px' height='50px')
-                            a(href=`/user/profile/${userDTO.username}`) #{userDTO.username}
-                        li 
-                            a(href='/user/logout') Logout
-                        li
-                            a(href='/video/upload') Upload Video
-                    else
-                        li
-                            a(href='/login') Login
-                        li
-                            a(href='/join') Sign Up
-                include partials/search
+            include partials/header
         main
             block content
-        include partials/footer
+        footer    
+            include partials/footer
         script(src="/static/js/main.js")
