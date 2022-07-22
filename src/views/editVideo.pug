@@ -2,12 +2,23 @@ extends base
 
 
 block content 
-    h1 Edit Video
-    form(method="POST" enctype='multipart/form-data')
-        label(for='video') Video( File size has to be under 10MB)
-        input(name='video' type='file' accept='video/*' id='video')
-        input(name='title' type='text' placeholder='Title' maxLength='80' value=video.title required)
-        input(name='description' type='text' placeholder='description' maxLength='200' value=video.description)
-        input(name='hashtags' type='text' placeholder='hashtags, separated by comma' value=formatUtil.removeHashtags(video.hashtags))
-        input(type="submit" value="Edit")
-        a(href=`/video/${video._id}`) &larr; back
+    section.formSection
+        div.titleFrame
+            h2.title #{pageTitle}
+        div.formFrame
+            small.errorMessage #{errorMessage}
+            form(method="POST" enctype='multipart/form-data')
+                div.fileArea
+                    label(for='video').label
+                            i(class="fa-solid fa-camera") Video( under 10MB )
+                    input(name='video' type='file' accept='video/*' id='video').file
+                div
+                    input(name='title' type='text' placeholder='Title' maxLength='80' value=video.title required)
+                div
+                    input(name='description' type='text' placeholder='description' maxLength='200' value=video.description)
+                div
+                    input(name='hashtags' type='text' placeholder='hashtags, separated by comma' value=formatUtil.removeHashtags(video.hashtags))
+                div
+                    input(type="submit" value="Edit").submit
+                div
+                    a(href=`/video/${video._id}`).locationSign &larr; back

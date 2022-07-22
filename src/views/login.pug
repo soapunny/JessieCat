@@ -1,17 +1,16 @@
 extends base
 
 block content
-    div.loginFrame
-        h2.pagetitle #{pageTitle}
-        div.loginForm
+    section.formSection
+        div.titleFrame
+            h2.pagetitle #{pageTitle}
+        div.formFrame
             small.errorMessage=errorMessage
             form(method='post')
-                input(name='email' value=email type='email' placeholder='Email' required).email
-                input(name='password' value=password type='password' placeholder='Password' required).password
-                input(type='submit' value='Sign in').submit
                 div
-                    a(href=`/user/github/login`).githubLogin
-                        i.fab.fa-github  Continue with Github
+                    input(name='email' value=email type='email' placeholder='Email' required).email
                 div
-                    a(href=`#`).googleLogin
-                        i.fab.fa-google  Continue with Google
+                    input(name='password' value=password type='password' placeholder='Password' required).password
+                div
+                    input(type='submit' value='Sign in').submit
+                include partials/socialLogin

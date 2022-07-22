@@ -3,14 +3,23 @@ extends base
 
 
 block content 
-    h1 upload new video!
-    if errorMessage
-        span=errorMessage
-    form(method='post' enctype='multipart/form-data')
-        label(for='video') Video( File size has to be under 10MB)
-        input(name='video' type='file' accept='video/*' id='video' required)
-        input(name='title' type='text' placeholder='Title' maxLength='80' required)
-        input(name='description' type='text' placeholder='description' maxLength='200')
-        input(name='hashtags' type='text' placeholder='hashtags, separated by comma')
-        input(type='submit' value='Save')
-    a(href='/') &larr; Go Home
+    section.formSection
+        div.titleFrame
+            h2.title #{pageTitle}
+        div.formFrame
+            small.errorMessage #{errorMessage}
+            form(method='post' enctype='multipart/form-data')
+                div.fileArea
+                    label(for='video').label
+                            i(class="fa-solid fa-camera") Video( under 10MB )
+                    input(name='video' type='file' accept='video/*' id='video' required).file
+                div
+                    input(name='title' type='text' placeholder='Title' maxLength='80' required)
+                div
+                    input(name='description' type='text' placeholder='description' maxLength='200')
+                div
+                    input(name='hashtags' type='text' placeholder='hashtags, separated by comma')
+                div
+                    input(type='submit' value='Save').submit
+                div
+                    a(href='/').locationSign &larr; Go Home

@@ -1,0 +1,68 @@
+
+.profileSection{
+    width: 80vw;
+    height: auto;
+    .userInfoBig{
+        
+        border-bottom-color: $videoArticle_border_bottom_color;
+        border-bottom-width: $videoArticle_border_bottom_width;
+        border-bottom-style: $videoArticle_border_bottom_style;
+    }
+    .editInfo{
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 3vw;
+        .editProfile{
+    
+        }
+    }
+    .userVideos{
+        width: 80vw;
+        height: 130vh;
+        padding-top: $main_padding_top;
+        display: grid;
+        grid-template-columns: 25vw 25vw 25vw;
+        grid-template-rows: 40vh 40vh 40vh;
+        justify-content: space-between;
+        align-content: space-between;
+    
+        .videoArticle{
+                width: 100%;
+                height: 100%;
+                display: grid;
+                grid-template-rows: 80% 10% 10%;
+                grid-template-columns: 1fr;
+                justify-content: center;
+                align-items: center;
+                background-color: $green_bg_color;
+    
+                .videoFrame{
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    overflow-y: hidden;
+                    .video{
+                        max-width: 100%;
+                    }
+                }
+                .title{
+                }
+                .meta{
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    .view{
+    
+                    }
+                    .heart{
+                        padding-left: 1rem;
+                    }
+                    .like{
+                        padding-left: 0.3rem;
+                    }
+                }
+        }
+    }
+}

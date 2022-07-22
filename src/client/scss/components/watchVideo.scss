@@ -1,0 +1,94 @@
+
+.watchVideoSection{
+    padding-top: 2vh;
+    width: 80vw;
+    height: 90vh;
+    display: grid;
+    grid-template-rows: 60% 12% 12%;
+    grid-template-columns: 1fr;
+    background-color: $green_bg_color;
+    
+    .videoFrame{
+        display: flex;
+        justify-content: center;
+        background-color: $darker_bg_color;
+        .video{
+            width: 100%;
+        }
+    }
+    .topMenu{
+        height: 100%;
+        align-self: start;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        border-bottom-color: $videoArticle_border_bottom_color;
+        border-bottom-width: $videoArticle_border_bottom_width;
+        border-bottom-style: $videoArticle_border_bottom_style;
+        
+        .hashtags{
+            display: flex;
+            li{
+                padding-right: 0.5rem;
+            }
+        }
+        .videoTitle{
+            font-size: $video_title_font_size;
+            color: white;
+        }
+        .viewLikeDate{
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            .view{
+                padding-right: $mata_right_padding;
+            }
+            .heart{
+                padding-right: $mata_right_padding;
+            }
+            .like{
+                padding-right: $mata_right_padding;
+            }
+            .date{
+                width: max-content;
+                padding-left: 3rem;
+            }
+        }
+        .management{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            .edit{
+
+            }
+            .delete{
+
+            }
+        }
+    }
+    .bottomMenu{
+        display: grid;
+        grid-template-columns: 20% 80%;
+        padding-top: 2rem;
+        
+        .ownerInfo{
+            height: max-content;
+            display: flex;
+            align-items: center;
+            .ownerAvatar{
+                width: $avatar_width;
+                height: $avatar_height;
+            }
+            .ownername{
+                font-size: $user_font_size;
+                padding-left: 0.5rem;
+            }
+        }
+        .videoDescription{
+            color: white;
+            padding-top: 1rem;
+            padding-left: 2rem;
+        }
+    }
+}

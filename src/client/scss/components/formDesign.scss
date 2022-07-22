@@ -1,0 +1,109 @@
+
+.formSection{
+    width: 80vw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .titleFrame{
+        width: 60vw;
+        height: 12vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: $title_font_size;
+        .pagetitle{
+            text-align: center;
+            font-weight: bold;
+        }
+    }
+    .formFrame{
+        width: 60vw;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .errorMessage{
+            color: $error_font_color;
+        }
+        form{
+            width: 40vw;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            div{
+                width: 100%;
+                height: 7vh;
+                input{
+                    text-indent: $input_box_indent;
+                    height: 5vh;
+                    width: 100%;
+                    font-size: $main_font_size;
+                    box-sizing: border-box;
+                    border-radius: $border_radius;
+                    border-width: $border_width;
+                    border-style: solid;
+                    border-color: $border_color;
+                    background-color: black;
+                    outline: none;
+                    color: inherit;
+                }
+                .socialTab{
+                    width: 100%;
+                    height: 5vh;
+                    background-color: black;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    a{
+                        width: 100%;
+                        font-size: 1rem;
+                    }
+                }
+                .submit{
+                    text-indent: 0;
+                    &:hover{
+                        color: white;
+                        cursor: pointer;
+                        background-color: $border_color;
+                    }
+                }
+            }
+            .fileArea{
+                display: flex;
+                width: 100%;
+                height: 7vh;
+                .label{
+                    display: flex;
+                    width: 100%;
+                    height: 5vh;
+                    justify-content: center;
+                    align-items: center;
+                    color: white;
+                    font-weight: bold;
+                    font-size: $main_font_size;
+                    box-sizing: border-box;
+                    border-radius: $border_radius;
+                    border-width: $border_width;
+                    border-style: solid;
+                    border-color: $border_color;
+                    background-color: black;
+                    outline: none;
+                    cursor: pointer;
+                    &:hover{
+                        color: white;
+                        background-color: $border_color;
+                    }
+                }
+                .file{
+                    display: none;
+                }
+            }
+        }
+    }
+}

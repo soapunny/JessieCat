@@ -18,18 +18,7 @@ header{
             justify-content: space-evenly;
             font-weight: bold;
             li{
-                .userInfo{
-                    display: flex;
-                    align-items: center;
-                    img{
-                        width: 2rem;
-                        height: 2rem;
-                    }
-                    .username{
-                        padding-left: 0.5rem;
-                        color: $username_color;
-                    }
-                }
+                
             }
             
         }

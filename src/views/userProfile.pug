@@ -2,21 +2,22 @@ extends base
 include mixins/video
 
 block content
-    div
-        h3 #{user.username}'s profile
-        img(src=user.avatarUrl width='100px' height='100px')
-        if userDTO._id === String(user._id)
-            a(href='/user/edit') Edit profile &rarr;
-        hr
-    div
-        h3 #{user.username}'s videos
-        if user.videos
-            each video in user.videos
-                +userVideo(video, user.username)
+    section.profileSection
+        div.userInfoBig
+            img(src=user.avatarUrl width='100px' height='100px').avatar
+            h3.username #{user.username}
+        div.editInfo
+            if userDTO._id === String(user._id)
+                a(href='/user/edit').editProfile Edit profile &rarr;
+        div.userVideos
+            if user.videos
+                each video in user.videos
+                    +profileVideo(video, user.username)
+                else 
+                    div Sorry, No Result.
             else 
                 div Sorry, No Result.
-        else 
-            div Sorry, No Result.
+        div.paginationSection
 
 
     

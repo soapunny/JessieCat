@@ -2,18 +2,27 @@ extends base
 
 
 block content
-    div
-        h2=pageTitle 
-        form(method='post' enctype='multipart/form-data')
-            input(name='email' value=userDTO.email type='email' placeholder='*Email(aaa@gmail.com)' disabled)
-            input(name='username' value=userDTO.username type='text' placeholder='*Username' required)
-            if duplicateUsername
-                small *Duplicate Username.
-            input(name='name' value=userDTO.name type='text' placeholder='*Name' required)
-            input(name='location' value=userDTO.location type='text' placeholder='Location')
-            if !userDTO.githubId
-                label(for='avatar') Avatar( File size has to be under 1MB. )
-                input(name="avatar" id='avatar' type='file' accept='image/*')
-            input(type='submit' value='Edit')
-        if !userDTO.githubId
-            a(href='/user/changePassword') Change password &rarr;
+    section.formSection
+        div.titleFrame
+            h2.title #{pageTitle}
+        div.formFrame
+            small.errorMessage #{errorMessage}
+            form(method='post' enctype='multipart/form-data')
+                div
+                    input(name='email' value=userDTO.email type='email' placeholder='*Email(aaa@gmail.com)' disabled)
+                div
+                    input(name='username' value=userDTO.username type='text' placeholder='*Username' required)
+                div
+                    input(name='name' value=userDTO.name type='text' placeholder='*Name' required)
+                div
+                    input(name='location' value=userDTO.location type='text' placeholder='Location')
+                div.fileArea
+                    if !userDTO.githubId
+                        label(for='avatar').label 
+                            i(class="fa-solid fa-camera")  Avatar( Under 1MB. )
+                        input(name="avatar" id='avatar' type='file' accept='image/*').file
+                div
+                    input(type='submit' value='Edit').submit
+                div
+                    if !userDTO.githubId
+                        a(href='/user/changePassword') Change password &rarr;

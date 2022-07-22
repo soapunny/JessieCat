@@ -32,8 +32,16 @@ class FormatUtil{
     toFullDate = (date) => {
         let formattedDate = "";
         formattedDate = this.to2DigitTimeFormat(date.getHours())+":"
-                        + this.to2DigitTimeFormat(date.getMinutes())+" | "
+                        + this.to2DigitTimeFormat(date.getMinutes())+" "
                         + this.to2DigitTimeFormat(date.getMonth()+1)+"-"
+                        + this.to2DigitTimeFormat(date.getDate())+"-"
+                        + date.getFullYear();
+        return formattedDate;
+    }
+
+    toSimpleDate = (date) => {
+        let formattedDate = "";
+        formattedDate = this.to2DigitTimeFormat(date.getMonth()+1)+"-"
                         + this.to2DigitTimeFormat(date.getDate())+"-"
                         + date.getFullYear();
         return formattedDate;

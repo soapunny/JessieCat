@@ -3,37 +3,19 @@
 @import "../config/variables";
 
 // Components
+@import "../components/shared.scss";
+@import "../components/home.scss";
 @import "../components/header.scss";
 @import "../components/footer.scss";
-//@import "../components/search.scss";
-//@import "../components/signup.scss";
-//@import "../components/login.scss";
-@import "../components/home.scss";
+@import "../components/formDesign.scss";
+@import "../components/profile.scss";
+@import "../components/watchVideo.scss";
 
 // Screens
 
 // Defaults
-a{
-    color:inherit;
-    text-decoration: none;
-    opacity: $opacity;
-    transition: background-color, 0.3s, linear;
-    transition: color 0.3s linear;
-    transition: opacity 0.3s linear;
-    &:hover{
-        opacity: 1.0;
-        cursor: pointer;
-    }
-}
-input{
-    &:hover{
-        transition: opacity 0.3s linear;
-        transition: background-color, 0.3s, linear;
-        transition: color 0.3s linear;
-    }
-}
 
-body{
+body{ 
     height: auto;
     width: 100vw;
     overflow-x: hidden;//Hide x-scroll

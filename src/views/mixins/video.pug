@@ -2,18 +2,18 @@
 mixin video(video)
     article.videoArticle
         div
-            div.ownerInfo
-                img(src=video.owner.avatarUrl).ownerAvatar 
-                a(href=`/user/profile/${video.owner.username}` class='ownername') #{video.owner.username}
+            div.userInfo
+                img(src=video.owner.avatarUrl).avatar 
+                a(href=`/user/profile/${video.owner.username}` class='username') #{video.owner.username}
                     
             a(href=`/video/${video._id}`).title #{video.title}
             video(src=video.videoUrl).video
             div.likeComment
                 a(href=`#`).like
-                    <i class="fa-regular fa-heart"></i>
+                    i(class="fa-regular fa-heart")
                     <!--<i class="fa-solid fa-heart"></i>-->
                 a(href=`#`).comment
-                    <i class="fa-regular fa-comment"></i>
+                    i(class="fa-regular fa-comment")
             div.descriptionHashtags
                 h4(class='description')=video.description
                 each hashtag in video.hashtags
@@ -23,18 +23,30 @@ mixin video(video)
 mixin userVideo(video, username)
     article.videoArticle
         div
-            div.ownerInfo
-                img(src=video.owner.avatarUrl).ownerAvatar 
-                a(href=`/user/profile/${username}` class='ownername')=username
+            div.userInfo
+                img(src=video.owner.avatarUrl).avatar 
+                a(href=`/user/profile/${username}` class='username')=username
             
             a(href=`/video/${video._id}`).title #{video.title}
             video(src=video.videoUrl).video
             div.likeComment
                 a(href=`#`).like
-                    i.fab.fa-heart
+                    i(class="fa-regular fa-heart")
                 a(href=`#`).comment
-                    i.fab.fa-comment
+                    i(class="fa-regular fa-comment")
             div.descriptionHashtags
                 h4(class='description')=video.description
                 each hashtag in video.hashtags
                     a(href='#').hashtag #{hashtag}
+
+mixin profileVideo(video, username)
+    article.videoArticle
+        div.videoFrame
+            video(src=video.videoUrl).video
+        a(href=`/video/${video._id}`).title #{video.title}
+        div.meta
+            span.view #{video.meta.view} views
+            a(href='#').heart
+                i(class="fa-regular fa-heart")
+            span.like #{video.meta.like}
+                

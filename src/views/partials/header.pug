@@ -2,7 +2,7 @@ nav
     ul.header_nav_left  
         if login
             li
-                div.userInfo
+                div.userInfoSmall
                     if userDTO && userDTO.avatarUrl
                         img(src=userDTO.avatarUrl)
                     a(href=`/user/profile/${userDTO.username}`).username #{userDTO.username}

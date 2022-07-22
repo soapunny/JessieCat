@@ -2,22 +2,28 @@ extends base
 
 
 block content
-    div
-        video(src=video.videoUrl autoplay=true controls=true)
-        h2=video.title
-        a(href=`/user/profile/${video.owner.username}`) #{video.owner.username}
-    div
-        h3=video.description
-        small Uploaded date: #{formatUtil.toFullDate(video.date)}
-        div
-            small view: #{video.meta.view} &emsp;
-            small like: #{video.meta.like}
-        ul
-            each hashtag in video.hashtags
-                li=hashtag
-    hr
-    div
-        if userDTO && (String(video.owner._id) === userDTO._id)
-            a(href=`/video/${video._id}/edit`) Edit Video &rarr;
-            br
-            a(href=`/video/${video._id}/delete`) Delete Video &rarr;
+    section.watchVideoSection
+        div.videoFrame
+            video(src=video.videoUrl autoplay=true controls=true).video
+        div.topMenu
+            ul.hashtags
+                each hashtag in video.hashtags
+                    li
+                        a(href='#')=hashtag
+            h2.videoTitle #{video.title}
+            div.viewLikeDate
+                span.view Views #{video.meta.view}
+                a(href='#').heart
+                    i(class="fa-regular fa-heart")
+                span.like #{video.meta.like}
+                span.date Date: #{formatUtil.toSimpleDate(video.date)}
+            div.management
+                if userDTO && (String(video.owner._id) === userDTO._id)
+                    a(href=`/video/${video._id}/edit`).edit Edit Video &rarr;
+                    a(href=`/video/${video._id}/delete`).delete Delete Video &rarr;
+        div.bottomMenu    
+            div.ownerInfo
+                img(src=video.owner.avatarUrl).ownerAvatar 
+                a(href=`/user/profile/${video.owner.username}` class='ownername')=video.owner.username            
+            h3.videoDescription #{video.description}
+            

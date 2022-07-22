@@ -1,22 +1,25 @@
 extends base
 
 block content
-    div.joinFrame
-        h2.pagetitle #{pageTitle}
-        div.joinForm
+    section.formSection
+        div.titleFrame
+            h2.pagetitle #{pageTitle}
+        div.formFrame
             small.errorMessage=errorMessage
             form(method='post')
-                input(name='email' value=email type='email' placeholder='*Email(aaa@gmail.com)' required)
-                input(name='username' value=username type='text' placeholder='*Username' required)
-                input(name='password' type='password' placeholder='*Password' required)
-                input(name='repassword' type='password' placeholder='*Confirm password' required)
-                input(name='name' value=name type='text' placeholder='*Name' required)
-                input(name='location' value=location type='text' placeholder='Location')
-                input(type='submit' value='Join').submit
                 div
-                    a(href=`/user/github/login`).githubLogin
-                        i.fab.fa-github  Continue with Github
+                    input(name='email' value=email type='email' placeholder='*Email(aaa@gmail.com)' required)
                 div
-                    a(href=`#`).googleLogin
-                        i.fab.fa-google  Continue with Google
+                    input(name='username' value=username type='text' placeholder='*Username' required)
+                div
+                    input(name='password' type='password' placeholder='*Password' required)
+                div
+                    input(name='repassword' type='password' placeholder='*Confirm password' required)
+                div
+                    input(name='name' value=name type='text' placeholder='*Name' required)
+                div
+                    input(name='location' value=location type='text' placeholder='Location')
+                div
+                    input(type='submit' value='Join').submit
+                include partials/socialLogin
     
