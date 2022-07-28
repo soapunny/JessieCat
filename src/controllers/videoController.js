@@ -1,5 +1,5 @@
 import { updateVideosInUser, deleteVideoInUser } from "../models/userModel";
-import { getVideos, getVideo, editVideo, uploadVideo, deleteVideo, searchVideos, doesVideoExist} from "../models/videoModel"
+import { getVideos, getVideo, editVideo, uploadVideo, deleteVideo, searchVideos, doesVideoExist, updateView} from "../models/videoModel"
 
 export const getHome = async (req, res) => {
     try{
@@ -140,5 +140,26 @@ export const getSearch = async(req, res) => {
         return res.render("searchVideos", {pageTitle: `Search \"${keyword}\"`, videos});
     }catch(error){
         return res.status(400).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
+    }
+}
+
+export const increaseView = async (req, res) => {
+    try{
+        const videoId = req.params.id;
+
+        const exists = await doesVideoExist(videoId, false);
+        if(!exists)
+            throw new Error("Error: wrong videoId");
+        
+        const view = exists.meta.view + 1;
+        console.log("view : "+view);
+        const video = await updateView(videoId, view, false);
+        if(!video){
+            throw new Error("Error: view update failed");
+        }
+        return res.sendStatus(200);//sendStatus => To exit the response
+    }catch(error){
+        console.log(error.message);
+        return res.sendStatus(404);
     }
 }

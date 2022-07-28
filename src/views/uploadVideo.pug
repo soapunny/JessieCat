@@ -9,6 +9,10 @@ block content
         div.formFrame
             small.errorMessage #{errorMessage}
             form(method='post' enctype='multipart/form-data')
+                div#recorder.recorder
+                    video(controls=false)#preview.preview
+                    button.recordBtn#recordBtn 
+                        i(class="fa-solid fa-record-vinyl")#recordIcon record
                 div.fileArea
                     label(for='video').label
                             i(class="fa-solid fa-camera") Video( under 10MB )
@@ -23,3 +27,6 @@ block content
                     input(type='submit' value='Save').submit
                 div
                     a(href='/').locationSign &larr; Go Home
+
+block scripts
+    script(src='/static/js/recorder.js')

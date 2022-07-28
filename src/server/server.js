@@ -9,6 +9,7 @@ import rootRouter from "../routers/rootRouter";
 import userRouter from "../routers/userRouter";
 import videoRouter from "../routers/videoRouter";
 import { MongoServerSelectionError } from "mongodb";
+import apiRouter from "../routers/apiRouter";
 
 const app = express();
 //=========================Middlewares==================================
@@ -27,6 +28,13 @@ app.use(session({
     },
     store: MongoStore.create({mongoUrl: process.env.MONGO_DB_URL}),//Save session in MongoDB
 }));//use session middleware before routers.
+app.use((req, res, next) => {
+    req.
+    res.header("Cross-Origin-Embedder-Policy", "require-corp");
+    res.header("Cross-Origin-Opener-Policy", "same-origin");
+    res.header("Cross-Origin-Resource-Policy", "cross-origin");
+    next();
+});
 
 app.use(localsMiddleware);
 //=========================End Middlewares===============================
@@ -38,6 +46,7 @@ app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
 app.use("/user", userRouter);
 app.use("/video", videoRouter);
+app.use("/api", apiRouter);
 //=========================End Router=====================================
 
 export default app;

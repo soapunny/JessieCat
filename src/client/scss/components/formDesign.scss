@@ -36,12 +36,15 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+
             div{
                 width: 100%;
-                height: 7vh;
+                height: 8vh;
+                display: flex;
+
                 input{
                     text-indent: $input_box_indent;
-                    height: 5vh;
+                    height: 6vh;
                     width: 100%;
                     font-size: $main_font_size;
                     box-sizing: border-box;
@@ -55,7 +58,8 @@
                 }
                 .socialTab{
                     width: 100%;
-                    height: 5vh;
+                    height: 6vh;
+                    font-size: $main_font_size;
                     background-color: black;
                     display: flex;
                     align-items: center;
@@ -74,14 +78,71 @@
                     }
                 }
             }
+            .recorder{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .preview{
+                    width: 100vw;
+                    height: 95vh;
+                    background-color: black;
+                    transform: rotateY(180deg);
+                    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+                    -moz-transform:rotateY(180deg); /* Firefox */
+                }
+                .hidden{
+                    display: none;
+                }
+
+                .recordBtn{
+                    display: flex;
+                    width: 100%;
+                    height: 6vh;
+                    justify-content: center;
+                    align-items: center;
+                    color: white;
+                    opacity: 1.0;
+                    font-weight: bold;
+                    font-size: $main_font_size;
+                    box-sizing: border-box;
+                    border-radius: $border_radius;
+                    border-width: $border_width;
+                    border-style: solid;
+                    border-color: $border_color;
+                    background-color: black;
+                    outline: none;
+                    cursor: pointer;
+                    &:hover{
+                        color: white;
+                        background-color: $border_color;
+                    }
+                }
+
+                .redFont{
+                    color: red;
+                }
+            }
+
+            .toFullScreen{
+                .preview{
+                    width: 100vw;
+                    height: 94vh;
+                }
+                .recordBtn{
+                    width: 100vw;
+                    height: 6vh;
+                }
+            }
+
             .fileArea{
                 display: flex;
                 width: 100%;
-                height: 7vh;
+                height: 8vh;
                 .label{
                     display: flex;
                     width: 100%;
-                    height: 5vh;
+                    height: 6vh;
                     justify-content: center;
                     align-items: center;
                     color: white;

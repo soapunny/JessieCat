@@ -1,10 +1,28 @@
 extends base
 
 
+
 block content
-    section.watchVideoSection
+    section(data-videoId=video._id).watchVideoSection#watchVideoSection
         div.videoFrame
-            video(src=video.videoUrl autoplay=true controls=true).video
+            video(src=video.videoUrl autoplay=true)#video.video
+            div.controlPanel
+                div.topPanel
+                    input(type="range" step="1" value="0" min="0")#timeline.timeline
+                div.bottomPanel
+                    div.bottomFrontPanel
+                        button#play.play.buttonNoBorder 
+                            i(class="fa-solid fa-play")
+                        span#currentTime.currentTime 00:00
+                        span  / 
+                        span#totalTime 00:00
+                    div.bottomBackPanel
+                        button#mute.mute.buttonNoBorder 
+                            i(class="fa-solid fa-volume-high")
+                        input(type="range" step="0.1" value="0.5" min="0" max="1")#volume.volume
+                        button#fullScreen.fullscreen.buttonNoBorder
+                            i(class="fa-solid fa-up-right-and-down-left-from-center")
+    
         div.topMenu
             ul.hashtags
                 each hashtag in video.hashtags
@@ -26,4 +44,6 @@ block content
                 img(src=video.owner.avatarUrl).ownerAvatar 
                 a(href=`/user/profile/${video.owner.username}` class='ownername')=video.owner.username            
             h3.videoDescription #{video.description}
-            
+
+block scripts
+    script(src="/static/js/videoPlayer.js")

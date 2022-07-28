@@ -2,14 +2,15 @@ class FormatUtil{
     constructor(){
 
     }
+
     to2DigitTimeFormat = (data) => {
         let result = data;
-    if(!(result instanceof String)){
-        result = result.toString();
-    }
-    if(result.length < 2)
-        result = result.padStart(2, "0");
-    return result;
+        if(!(result instanceof String)){
+            result = String(result);
+        }
+        if(result.length < 2)
+            result = result.padStart(2, "0");
+        return result;
     }
 
     toFormattedDate = (date) => {
@@ -45,6 +46,11 @@ class FormatUtil{
                         + this.to2DigitTimeFormat(date.getDate())+"-"
                         + date.getFullYear();
         return formattedDate;
+    }
+
+    toMinAndSeconds = (seconds) => {
+        if(seconds)
+            return new Date(seconds * 1000).toISOString().substring(14, 19);
     }
 
     addHashtags = (hashtags) => {

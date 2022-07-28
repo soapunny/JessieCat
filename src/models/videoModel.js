@@ -84,3 +84,11 @@ export const doesVideoExist = async (_id, needOwner) => {
     }
     return undefined;
 }
+
+export const updateView = async (_id, value, needOwner) => {
+    const videoDBModel = await findOneByFilterAndUpdate({_id}, {'meta.view': value}, needOwner);
+    if(videoDBModel){
+        return new VideoDTO(videoDBModel);
+    }
+    return undefined;
+}

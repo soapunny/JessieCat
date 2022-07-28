@@ -7,6 +7,7 @@
     "url": "git+https://github.com/soapunny/JessieCat.git"
   },
   "scripts": {
+    "server": "webpack serve",
     "dev:server": "nodemon",
     "dev:assets": "webpack"
   },
@@ -17,6 +18,8 @@
   },
   "homepage": "https://github.com/soapunny/JessieCat#readme",
   "dependencies": {
+    "@ffmpeg/core": "^0.8.5",
+    "@ffmpeg/ffmpeg": "^0.9.7",
     "bcrypt": "^5.0.1",
     "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.1",
@@ -27,7 +30,8 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "node-fetch": "^2.6.7",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
     "@babel/core": "^7.18.5",
@@ -41,6 +45,7 @@
     "sass-loader": "^13.0.2",
     "style-loader": "^3.3.1",
     "webpack": "^5.73.0",
-    "webpack-cli": "^4.10.0"
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3"
   }
 }

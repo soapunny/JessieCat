@@ -1,3 +1,5 @@
 import "../scss/screens/styles.scss";
 
-console.log("Hi! Hello!");
+export const changeClassname = (target, className) => {
+    target.setAttribute("class", className);
+}

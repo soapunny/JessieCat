@@ -1,25 +1,28 @@
 footer{
     width: 100vw;
-    height: 20vh;
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    bottom: 0;
     .footerArea{
-        padding-top: 5vh;
+        width: inherit;
+        height: 15vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        overflow-y: hidden;
         .copyright{
             position: absolute;
-            justify-self: center;
             font-size: $copyrightSize;
             font-weight: bold;
             font-stretch: ultra-expanded;
             background-color: $bg_color;
         }
         .footerImg{
-            width: 100%;
-            margin-bottom: -50%;
-            z-index: -50;
+            width: inherit;
+            height: inherit;
+            object-fit: cover;
+            z-index: -99;
         }
     }
 

@@ -64,11 +64,14 @@
             .likeComment{
                 display:flex;
                 font-size: 1.5rem;
+                align-items: center;
                 
                 .like{
-                    padding-right: 1rem;
+                    font-size: 1rem;
+                    padding-left: 0.5rem;
                 }
                 .comment{
+                    padding-left: 1rem;
                 }
             }
             .descriptionHashtags{

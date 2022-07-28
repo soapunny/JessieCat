@@ -11,12 +11,12 @@ export const postJoin = async (req, res) => {
         const usernameExists = await checkUsername(username, false);
 
         if(password !== repassword){
-            return res.status(400).render("createAccount", {pageTitle: "Sign Up", passwordError: true, email, username, password, name, location});
+            return res.status(400).render("createAccount", {pageTitle: "Sign Up", errorMessage: "Password is not matching", email, username, password, name, location});
         }
         else if(emailExists){
-            return res.status(400).render("createAccount", {pageTitle: "Sign Up", duplicateEmail: true, email, username, password, name, location});
+            return res.status(400).render("createAccount", {pageTitle: "Sign Up", errorMessage: "Duplicate email", email, username, password, name, location});
         }else if(usernameExists){
-            return res.status(400).render("createAccount", {pageTitle: "Sign Up", duplicateUsername: true, email, username, password, name, location});
+            return res.status(400).render("createAccount", {pageTitle: "Sign Up", errorMessage: "Duplicate username", email, username, password, name, location});
         }
 
         await joinUser(email, username, password, name, location, false);
@@ -133,7 +133,7 @@ export const postEdit = async (req, res) => {
         if(originalUsername !== username){
             const doesUsernameExists = await checkUsername(username, false);
             if(doesUsernameExists){
-                return res.status(400).render("userEdit", {duplicateUsername: true});
+                return res.status(400).render("userEdit", {errorMessage: "Duplicate username"});
             }
         }
 
@@ -163,7 +163,7 @@ export const postChangePassword = async (req, res) => {
         
         if(newPassword !== newPassword2){
             //TODO send a duplicate password message
-            return res.status(400).render("changePassword", {pageTitle: "Change Password", errorMsg: "#Passwords do not match"});
+            return res.status(400).render("changePassword", {pageTitle: "Change Password", errorMessage: "#Passwords do not match"});
         }
         const exist = await checkUser(email, oldPassword, false);
         if(exist){
@@ -175,7 +175,7 @@ export const postChangePassword = async (req, res) => {
             return res.redirect("/user/logout");
         }
         //TODO send a wrong password message.
-        return res.status(400).render("changePassword", {pageTitle: "Change Password", errorMsg: "#Your original password is not correct"});
+        return res.status(400).render("changePassword", {pageTitle: "Change Password", errorMessage: "#Your original password is not correct"});
     }catch(error){
         return res.render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
     }
