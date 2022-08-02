@@ -75,12 +75,16 @@ export const postUpload = async (req, res) => {
     try{
         const {userDTO} = req.session;
         const {title, description, hashtags } = req.body;//ES6.
-        const {file} = req;
-        const videoUrl = file ? `/${file.path}` : undefined;
+        const {video, thumbnail} = req.files;
+        const videoUrl = video ? `/${video[0].path}` : undefined;
+        const thumbUrl = thumbnail ? `/${thumbnail[0].path}` : undefined;
         if(!videoUrl || !title){
             return res.render("uploadVideo", {pageTitle: "Upload Video", errorMessage: "Attach at least one video"});
         }
-        const newVideo = await uploadVideo(videoUrl, title, description, userDTO._id, hashtags, false);
+        if(!thumbUrl || !title){
+            return res.render("uploadVideo", {pageTitle: "Upload Video", errorMessage: "Attach at least one thumbnail"});
+        }
+        const newVideo = await uploadVideo(videoUrl, thumbUrl, title, description, userDTO._id, hashtags, false);
 
         if(newVideo){
             const user = await updateVideosInUser(userDTO._id, newVideo._id, true);

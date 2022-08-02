@@ -46,9 +46,10 @@ export const editVideo = async (_id, videoUrl, title, description, hashtags, nee
     return undefined;
 }
 
-export const uploadVideo = async (videoUrl, title, description, _id, hashtags, needOwner) => {
+export const uploadVideo = async (videoUrl, thumbUrl, title, description, _id, hashtags, needOwner) => {
     const newVideo = new VideoDTO();
     newVideo.videoUrl = videoUrl;
+    newVideo.thumbUrl = thumbUrl;
     newVideo.title = title;
     newVideo.description = description;
     newVideo.owner = _id;

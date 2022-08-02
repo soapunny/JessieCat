@@ -7,19 +7,6 @@ const EMPTY_HEART_CLASSNAME = "fa-regular fa-heart";
 const SOLID_HEART_CLASSNAME = "fa-solid fa-heart";
 let currentPlayingVideo = null;
 
-const handleVideoStart = (event) => {
-    console.log(event);
-    const video = event.target;
-    if(video.paused)
-        video.play();
-}
-const handleVideoPause = (event) => {
-    console.log(event);
-    const video = event.target;
-    if(!video.paused)
-        video.pause();
-}
-
 const handleVideoStartPause = (event) => {
     for(let i=0;i<videos.length;i++){
         if(isScrollYInElement(videos[i])){//if the scroll in video

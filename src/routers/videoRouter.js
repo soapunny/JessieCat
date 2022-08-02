@@ -1,13 +1,17 @@
 import express from "express";
 import { getWatch, getEdit, postEdit, getDelete, getUpload, postUpload } from "../controllers/videoController";
-import { acceptVideoFiles, loginOnlyMiddleware, logoutOnlyMiddleware } from "../middlewares/middlewares";
+import { acceptFiles, acceptVideoFiles, loginOnlyMiddleware, logoutOnlyMiddleware } from "../middlewares/middlewares";
+import { THUMBNAIL_FIELD_NAME, VIDEO_FIELD_NAME } from "../names/fileNames";
 
 const videoRouter = express.Router();
 
 videoRouter.route("/upload")
             .all(loginOnlyMiddleware)
             .get(getUpload)
-            .post(acceptVideoFiles.single('video') ,postUpload);//It has to be on the top. Not to be recognized as id
+            .post(acceptFiles.fields([
+                                {name: VIDEO_FIELD_NAME, maxCount: 1}
+                                , {name: THUMBNAIL_FIELD_NAME, maxCount: 1}
+                            ]), postUpload);//It has to be on the top. Not to be recognized as id
 videoRouter.get("/:id([0-9a-f]{24})", getWatch);
 videoRouter.route("/:id([0-9a-f]{24})/edit")
             .all(loginOnlyMiddleware)

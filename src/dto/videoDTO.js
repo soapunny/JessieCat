@@ -3,6 +3,7 @@ import VideoDBModel from "../db/videoDBModel"
 class VideoDTO {
     _id = undefined
     videoUrl = undefined
+    thumbUrl = undefined
     title = undefined
     description = ""
     owner = undefined
@@ -14,6 +15,7 @@ class VideoDTO {
         if(videoDBModel){
             this._id = videoDBModel._id;
             this.videoUrl = videoDBModel.videoUrl;
+            this.thumbUrl = videoDBModel.thumbUrl;
             this.title = videoDBModel.title;
             this.description = videoDBModel.description;
             this.owner = videoDBModel.owner;
@@ -26,6 +28,7 @@ class VideoDTO {
     toVideoDBModel = () => {
         const _id = this._id;
         const videoUrl = this.videoUrl;
+        const thumbUrl = this.thumbUrl;
         const title = this.title;
         const description = this.description;
         const owner = this.owner;
@@ -36,6 +39,7 @@ class VideoDTO {
         const videoDBModel = new VideoDBModel({
             _id,
             videoUrl,
+            thumbUrl,
             title,
             description,
             owner,

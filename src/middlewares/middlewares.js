@@ -1,3 +1,4 @@
+import { THUMBNAIL_FIELD_NAME, VIDEO_FIELD_NAME } from "../names/fileNames";
 import { getAvatarDir, getVideoDir, makeFolder } from "../utils/fileUtil";
 import FormatUtil from "../utils/formatUtil";
 
@@ -59,3 +60,28 @@ const videoStorage = multer.diskStorage({
 
 //npm i multer => file upload middleware
 export const acceptVideoFiles = multer({ storage: videoStorage, limits: {fileSize: 1048576*10} });
+
+
+const fileStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        if(file.fieldname === VIDEO_FIELD_NAME){
+            const userId = req.session.userDTO._id;
+            const dest = getVideoDir(userId);
+            makeFolder(dest);
+            cb(null, dest);
+        }else if(file.fieldname === THUMBNAIL_FIELD_NAME){
+            const userId = req.session.userDTO._id;
+            const dest = getVideoDir(userId);
+            makeFolder(dest);
+            cb(null, dest);
+        }
+    },
+    filename: function (req, file, cb) {
+        const splitedFileName = file.originalname.split(".");
+        const extension = splitedFileName[splitedFileName.length-1];
+        cb(null, file.fieldname + '-' + Date.now()+'.'+extension);
+    },
+});
+
+//npm i multer => file upload middleware
+export const acceptFiles = multer({ storage: fileStorage,  limits: {fileSize: 1048576*10} });

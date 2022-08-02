@@ -11,6 +11,7 @@
     
     .videoFrame{
         outline: none;
+        position: relative;
         padding-top: 5vh;
         width: 80vw;
         height: 50vh;
@@ -23,6 +24,7 @@
             max-height: 50vh;
             justify-self: center;
             object-fit: cover;
+            object-position: center;
         }
         .fullScreenVideo{
             max-width: 100vw;

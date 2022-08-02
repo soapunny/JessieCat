@@ -10,6 +10,7 @@ const HIDDEN_CLASS = "hidden";
 const RECORD_BTN = "RECORD";
 const STOP_BTN = "STOP";
 const DOWNLOAD_BTN = "DOWNLOAD";
+const ENCODING_BTN = "Encoding Video ";
 const FULLSCREEN_CLASS = "toFullScreen";
 
 const recorder = document.getElementById("recorder");
@@ -21,7 +22,28 @@ let videoStream = null;
 let streamTracks = null;
 let isRecordOn = false;
 let mediaRecorder = null;
+let ffmpeg = null;
 let videoFile = null;
+let videoUrl = null;
+let thumbUrl = null;
+let isBeingEncoded = false;
+
+const files = {
+    input: "recording.webm",
+    output: "output.mp4",
+    thumb: "thumbnail.jpg"
+}
+
+const encodingProgress = ["[#---------]"
+                          , "[##--------]"
+                          , "[###-------]"
+                          , "[####------]"
+                          , "[#####-----]"
+                          , "[######----]"
+                          , "[#######---]"
+                          , "[########--]"
+                          , "[#########-]"
+                          , "[##########]"];
 
 //Init when the windwo starts.
 const handleInit = () => {
@@ -34,7 +56,8 @@ const handleRecord = async () => {
         startFullscreen();
     }else {//In case it's fullscreen
         if(videoFile){//In case you already took a video.
-            handleDownload();
+            isBeingEncoded = await handleDownload();
+            protectVideoEncoding();
         }else if(!isRecordOn){
             startRecord();
         }else{
@@ -44,44 +67,98 @@ const handleRecord = async () => {
     }
 }
 
-const handleDownload = async () => {
-    const ffmpeg = createFFmpeg({
-        log: true
-        ,
-    });
-    await ffmpeg.load();
-    ffmpeg.FS("writeFile", "recording.webm", await fetchFile(videoFile));
-    //encoding webm => 60 frame/s, mp4
-    await ffmpeg.run("-i", "recording.webm", "-r", "60", "output.mp4");
-    await ffmpeg.run("-i"
-                    , "recording.webm"
-                    , "-ss"
-                    , "00:00:01"
-                    , "-frames:v"
-                    , "1"
-                    , "thumbnail.jpg"
-                    );
+const protectVideoEncoding = () => {
+    if(isBeingEncoded){
+        recordBtn.removeEventListener("click", handleRecord);
+        changeClassname(recordIcon, "");
+        recordIcon.innerText = ENCODING_BTN + encodingProgress[0];
+        recordBtn.disabled = true;
+    }else{
+        recordBtn.addEventListener("click", handleRecord);
+        changeClassname(recordIcon, RECORD_ICON_CLASS);
+        recordIcon.innerText = RECORD_BTN;
+        recordBtn.disabled = false;
+    }
+}
 
-    const mp4File = ffmpeg.FS("readFile", "output.mp4");//Unit8Array data.
-    const thumbFile = ffmpeg.FS("readFile", "thumbnail.jpg");
-
-    const mp4Blob = new Blob([mp4File.buffer], {type:"video/mp4"});//change it into Blob
-    const thumbBlob = new Blob([thumbFile.buffer], {type: "image/jpb"});
-
-    const videoUrl = URL.createObjectURL(mp4Blob);
-    const thumbUrl = URL.createObjectURL(thumbBlob);
-
+const downloadFile = (fileUrl, fileName) => {
     const a = document.createElement("a");
-    a.href = videoUrl;
-    a.download = "MyRecording.mp4";
+    a.href = fileUrl;
+    a.download = fileName;
     document.body.appendChild(a);
     a.click();
+}
 
-    const thumbA = document.createElement("a");
-    thumbA.href = thumbUrl;
-    thumbA.download = "MyThumbnail.jpg";
-    document.body.appendChild(thumbA);
-    thumbA.click();
+const releaseEncodingResources = () => {
+    //release resources
+    if(ffmpeg){
+        ffmpeg.FS("unlink", files.input);
+        ffmpeg.FS("unlink", files.output);
+        ffmpeg.FS("unlink", files.thumb);
+        ffmpeg = null;
+    }
+
+    if(videoUrl){
+        URL.revokeObjectURL(videoUrl);
+        videoUrl = null;
+    }
+    if(thumbUrl){
+        URL.revokeObjectURL(thumbUrl);
+        thumbUrl = null;
+    }
+    if(videoFile){
+        URL.revokeObjectURL(videoFile);
+        videoFile = null;
+    }
+}
+
+const handleDownload = async () => {
+    
+    return new Promise(async (resolve, reject) => {
+        isBeingEncoded = true;
+        protectVideoEncoding();
+
+
+        ffmpeg = createFFmpeg({
+            log: true
+            ,
+        });
+        await ffmpeg.load();
+        ffmpeg.FS("writeFile", files.input, await fetchFile(videoFile));
+        recordIcon.innerText = ENCODING_BTN + encodingProgress[4];
+        //encoding webm => 60 frame/s, mp4
+        await ffmpeg.run("-i", files.input
+                        , "-r", "60", files.output);
+        recordIcon.innerText = ENCODING_BTN + encodingProgress[6];
+        
+        await ffmpeg.run("-i", files.input
+                        , "-ss", "00:00:01"
+                        , "-frames:v", "1", files.thumb);
+        recordIcon.innerText = ENCODING_BTN + encodingProgress[8];
+        
+        const mp4File = ffmpeg.FS("readFile", files.output);//return Unit8Array data.
+        const thumbFile = ffmpeg.FS("readFile", files.thumb);
+        
+        const mp4Blob = new Blob([mp4File.buffer], {type:"video/mp4"});//change it into Blob
+        const thumbBlob = new Blob([thumbFile.buffer], {type: "image/jpb"});
+
+        videoUrl = URL.createObjectURL(mp4Blob);
+        thumbUrl = URL.createObjectURL(thumbBlob);
+
+        downloadFile(videoUrl, "MyRecording.mp4");
+        downloadFile(thumbUrl, "MyThumbnail.jpg");
+        
+        releaseEncodingResources();
+        recordIcon.innerText = ENCODING_BTN + encodingProgress[9];
+
+        
+        const isFullScreen = document.fullscreenElement;
+        if(isFullScreen)
+            startCamera();
+
+        resolve(false);
+    });
+
 }
 
 const startRecord = () => {
@@ -127,6 +204,7 @@ const startCamera = async () => {
     preview.src = null;
     preview.loop = false;
     preview.play();
+    isRecordOn = false;
     recordIcon.innerText = RECORD_BTN;
 }
 
@@ -141,7 +219,6 @@ const endCamera = () => {
     preview.srcObject = null;
     preview.src = null;
     preview.loop = false;
-    videoFile = null;
     videoStream = null;
 }
 
@@ -152,9 +229,10 @@ const startFullscreen = () => {
     startCamera();//Init the recordstream.
 }
 
-const endFullscreen = () => {
+const endFullscreen = async () => {
     recorder.classList.remove(FULLSCREEN_CLASS);
     preview.classList.add(HIDDEN_CLASS);
+
     stopRecord();
     endCamera();
 }

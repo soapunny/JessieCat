@@ -1,7 +1,5 @@
 extends base
 
-
-
 block content 
     section.formSection
         div.titleFrame
@@ -15,8 +13,14 @@ block content
                         i(class="fa-solid fa-record-vinyl")#recordIcon record
                 div.fileArea
                     label(for='video').label
-                            i(class="fa-solid fa-camera") Video( under 10MB )
+                        i(class="fa-solid fa-camera") Video( under 10MB )
                     input(name='video' type='file' accept='video/*' id='video' required).file
+
+                div.fileArea
+                    label(for='thumbnail').label
+                        i(class="fa-solid fa-camera") Thumbnail( under 3MB )
+                    input(name='thumbnail' type='file' accept='image/*' id='thumbnail' required).file
+                    
                 div
                     input(name='title' type='text' placeholder='Title' maxLength='80' required)
                 div
