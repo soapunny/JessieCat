@@ -7,14 +7,16 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const BASE_JS_ROOT = "./src/client/js/";
 
 //path.resolve(__dirname, "assets", "js") => add up the paths together.
 module.exports = {
     entry: {
-        main: "./src/client/js/main.js",
-        videoPlayer: "./src/client/js/videoPlayer.js",
-        home: "./src/client/js/home.js",
-        recorder: "./src/client/js/recorder.js",
+        main: `${BASE_JS_ROOT}main.js`,
+        videoPlayer: `${BASE_JS_ROOT}videoPlayer.js`,
+        home: `${BASE_JS_ROOT}home.js`,
+        recorder: `${BASE_JS_ROOT}recorder.js`,
+        commentSection: `${BASE_JS_ROOT}commentSection.js`,
     },
     mode: 'development',
     watch: true,

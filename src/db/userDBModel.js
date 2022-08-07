@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import { userLevel, userStatus } from "../names/names";
 
 const userSchema = new mongoose.Schema({
     email: {type: String, required: true, unique: true},
@@ -10,8 +11,13 @@ const userSchema = new mongoose.Schema({
     name: {type: String, required: true},
     joinDate: {type: Date, required: true, default: Date.now},
     location: String,
+    comments: [{type: mongoose.Schema.Types.ObjectId, ref:'Comment'}],
+    likes: [{type: mongoose.Schema.Types.ObjectId, ref:'Like'}],
     videos: [{type: mongoose.Schema.Types.ObjectId, ref: 'Video'}],
+    status: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Status'},
+    level: {type: String, required: true, default: userLevel.SILVER},
 });
+//**********TODO Status (member / manager)
 
 userSchema.pre('save', async function() {
     //npm i bcrypt : install bcrypt to hash password

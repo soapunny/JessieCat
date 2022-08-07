@@ -4,6 +4,8 @@ import session from "express-session";
 //npm i connect-mongo
 import MongoStore from "connect-mongo";
 import morgan from "morgan";
+//npm i express-flash
+import flash from "express-flash";
 import { localsMiddleware } from "../middlewares/middlewares";
 import rootRouter from "../routers/rootRouter";
 import userRouter from "../routers/userRouter";
@@ -19,6 +21,7 @@ app.use(logger);//watch out the sequence.
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views"); //Change process's current directory.
 app.use(express.urlencoded({extended: true})); //Make the express understand the Form-Data
+app.use(express.json()); //To understand text messages.
 app.use(session({
     secret: process.env.COOKIE_SECRET,
     resave: false,//Only remember someone who login
@@ -36,6 +39,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(flash());
 app.use(localsMiddleware);
 //=========================End Middlewares===============================
 

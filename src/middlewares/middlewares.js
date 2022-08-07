@@ -1,12 +1,11 @@
-import { THUMBNAIL_FIELD_NAME, VIDEO_FIELD_NAME } from "../names/fileNames";
+import { SITE_NAME, THUMBNAIL_FIELD_NAME, VIDEO_FIELD_NAME } from "../names/names";
 import { getAvatarDir, getVideoDir, makeFolder } from "../utils/fileUtil";
 import FormatUtil from "../utils/formatUtil";
-
 
 const multer = require("multer");
 
 export const localsMiddleware = (req, res, next) => {
-    res.locals.siteName = "Jessie Cat";
+    res.locals.siteName = SITE_NAME;
     res.locals.login = req.session.login;
     res.locals.userDTO = req.session.userDTO;
     res.locals.formatUtil = new FormatUtil();
@@ -17,6 +16,7 @@ export const loginOnlyMiddleware = (req, res, next) => {
     if(req.session.login)
         return next();
     
+    req.flash("error", "You have to login first.");
     return res.redirect("/login");
 }
 
@@ -24,6 +24,7 @@ export const logoutOnlyMiddleware = (req, res, next) => {
     if(!req.session.login)
         return next();
 
+    req.flash("error", "You are already logged in.");
     return res.redirect("/");
 }
 

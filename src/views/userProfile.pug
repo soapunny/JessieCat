@@ -6,6 +6,7 @@ block content
         div.userInfoBig
             img(src=user.avatarUrl width='100px' height='100px').avatar
             h3.username #{user.username}
+            h4.userLevel [ #{user.level} ]
         div.editInfo
             if userDTO._id === String(user._id)
                 a(href='/user/edit').editProfile Edit profile &rarr;

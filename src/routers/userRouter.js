@@ -1,5 +1,5 @@
 import express from "express";
-import { getUser, getLogout, getGithubLogin, getChangePassword, postChangePassword, getGithubCallback, getProfile, getEdit, postEdit, getDelete } from "../controllers/userController";
+import { getLogout, getGithubLogin, getChangePassword, postChangePassword, getGithubCallback, getProfile, getEdit, postEdit, getDelete, postDelete } from "../controllers/userController";
 import { loginOnlyMiddleware, logoutOnlyMiddleware, acceptImageFiles } from "../middlewares/middlewares";
 
 const userRouter = express.Router();
@@ -10,7 +10,10 @@ userRouter.route("/edit")
             .all(loginOnlyMiddleware)
             .get(getEdit)
             .post(acceptImageFiles.single('avatar'), postEdit);
-userRouter.get("/delete",loginOnlyMiddleware, getDelete);
+userRouter.route("/delete")
+            .all(loginOnlyMiddleware)
+            .get(getDelete)
+            .post(postDelete);
 userRouter.route("/changePassword")
             .all(loginOnlyMiddleware)
             .get(getChangePassword)

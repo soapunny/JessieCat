@@ -29,14 +29,26 @@ const fullScreen = watchVideoSection.querySelector("#fullScreen");
 const fullScreenIcon = fullScreen.querySelector("i");
 const formatUtil = new FormatUtil();
 
+const view = watchVideoSection.querySelector(".view");
+
+const commentForm = document.getElementById("commentForm");
+
 let originalVolumeValue = 0.5;
 let timeoutObj = null;
 
 const handleKeyup = (e) => {
     switch(e.keyCode){
         case 32:
-            e.preventDefault();
-            handlePlayPause();//space
+            if(commentForm){
+                const commentArea = commentForm.querySelector("#commentArea");
+                if(document.activeElement !== commentArea){
+                    e.preventDefault();
+                    handlePlayPause();//space
+                }
+            }else{
+                e.preventDefault();
+                handlePlayPause();//space
+            }
             break;
     }
 }
@@ -45,8 +57,13 @@ const updateView = async () => {
     const videoId = watchVideoSection.dataset.videoid;
     const URL = `/api/video/${videoId}/view`;
     const fetchOption = {method:"POST"};
-    await fetch(URL, fetchOption);
-    window.location.reload();
+    await fetch(URL, fetchOption).then(async (response) => {
+        const json = await response.json();
+        console.log(json.view);
+        const currentView = json.view;
+        view.innerText = `Views ${currentView}`;
+        changeClassname(playBtnIcon, PLAY_CLASS);
+    });
 }
 
 const handleVideoEnd = (e) => {

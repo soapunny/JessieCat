@@ -10,7 +10,11 @@ class UserDTO {
     name = undefined
     joinDate = undefined
     location = undefined
+    comments = undefined
+    likes = undefined
     videos = undefined
+    status = undefined
+    level = undefined
 
     constructor(userDBModel){
         if(userDBModel){
@@ -23,7 +27,11 @@ class UserDTO {
             this.name = userDBModel.name;
             this.joinDate = userDBModel.joinDate;
             this.location = userDBModel.location;
+            this.comments = userDBModel.comments;
+            this.likes = userDBModel.likes;
             this.videos = userDBModel.videos;
+            this.status = userDBModel.status;
+            this.level = userDBModel.level;
         }
     }
 
@@ -36,7 +44,11 @@ class UserDTO {
         const name = this.name;
         const joinDate = this.joinDate;
         const location = this.location;
+        const comments = this.comments;
+        const likes = this.likes;
         const videos = this.videos;
+        const status = this.status;
+        const level = this.level;
 
         const userDBModel = new UserDBModel({
             email,
@@ -47,7 +59,11 @@ class UserDTO {
             name,
             joinDate,
             location,
-            videos
+            comments,
+            likes,
+            videos,
+            status,
+            level
         });
 
         return userDBModel;

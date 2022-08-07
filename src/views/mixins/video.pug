@@ -11,9 +11,10 @@ mixin video(video)
             div.likeComment
                 a.heart#heart
                     i(class="fa-regular fa-heart")#heartIcon
-                span.like#like #{video.meta.like}
+                span.like#like #{video.likes.length}
                 a(href=`#`).comment#comment
                     i(class="fa-regular fa-comment")
+                span.commentCnt#commentCnt #{video.comments.length}
             div.descriptionHashtags
                 h4(class='description')=video.description
                 each hashtag in video.hashtags
@@ -32,9 +33,10 @@ mixin userVideo(video, username)
             div.likeComment
                 a.heart#heart
                     i(class="fa-regular fa-heart")#heartIcon
-                span.like#like #{video.meta.like}
+                span.like#like #{video.likes.length}
                 a(href=`#`).comment#comment
                     i(class="fa-regular fa-comment")
+                span.commentCnt#commentCnt #{video.comments.length}
             div.descriptionHashtags
                 h4(class='description')=video.description
                 each hashtag in video.hashtags
@@ -46,8 +48,8 @@ mixin profileVideo(video, username)
             video(src=video.videoUrl poster=video.thumbUrl loop=true muted="muted")#video.video
         a(href=`/video/${video._id}`).title #{video.title}
         div.meta
-            span.view #{video.meta.view} views
+            span.view #{video.view} views
             a.heart#heart
                 i(class="fa-regular fa-heart")#heartIcon
-            span.like#like #{video.meta.like}
+            span.like#like #{video.likes.length}
                 

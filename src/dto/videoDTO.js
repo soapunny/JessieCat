@@ -9,7 +9,9 @@ class VideoDTO {
     owner = undefined
     date = undefined
     hashtags = undefined
-    meta = undefined
+    comments = undefined
+    likes = undefined
+    view = undefined
 
     constructor(videoDBModel){
         if(videoDBModel){
@@ -21,7 +23,9 @@ class VideoDTO {
             this.owner = videoDBModel.owner;
             this.date = videoDBModel.date;
             this.hashtags = videoDBModel.hashtags;
-            this.meta = videoDBModel.meta;
+            this.comments = videoDBModel.comments;
+            this.likes = videoDBModel.likes;
+            this.view = videoDBModel.view;
         }
     }
 
@@ -34,7 +38,9 @@ class VideoDTO {
         const owner = this.owner;
         const date = this.date;
         const hashtags = this.hashtags;
-        const meta = this.meta;
+        const comments = this.comments;
+        const likes = this.likes;
+        const view = this.view;
 
         const videoDBModel = new VideoDBModel({
             _id,
@@ -45,7 +51,9 @@ class VideoDTO {
             owner,
             date,
             hashtags,
-            meta
+            comments,
+            likes,
+            view
         });
 
         return videoDBModel;

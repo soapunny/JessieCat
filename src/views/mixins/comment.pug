@@ -1,0 +1,13 @@
+
+mixin comment(comment, userId)
+    article(data-commentid=comment._id).videoComment
+        div.leftMenu
+            img(src=comment.owner.avatarUrl).avatar
+        div.rightMenu
+            div.usernameArea
+                a(href=`/user/profile/${comment.owner.username}` class='username') #{comment.owner.username}
+                small.date #{comment.getFormattedDate()}
+            div.messageArea
+                p.comment #{comment.message}
+                if String(comment.owner._id) === String(userId)
+                    a(href=`/api/video/${comment.video._id}/comment/${comment._id}/delete`).deleteBtn#deleteBtn X

@@ -1,7 +1,7 @@
 import express from "express";
 import { getWatch, getEdit, postEdit, getDelete, getUpload, postUpload } from "../controllers/videoController";
 import { acceptFiles, acceptVideoFiles, loginOnlyMiddleware, logoutOnlyMiddleware } from "../middlewares/middlewares";
-import { THUMBNAIL_FIELD_NAME, VIDEO_FIELD_NAME } from "../names/fileNames";
+import { THUMBNAIL_FIELD_NAME, VIDEO_FIELD_NAME } from "../names/names";
 
 const videoRouter = express.Router();
 

@@ -1,59 +1,78 @@
 //npm i node-fetch@2 -> to use fetch in nodejs
 import fetch from "node-fetch";//TODO Fix the import problem
-import { saveUser, findUserByFilter, findUserByEmailAndPassword, findUserByFilterAndUpdate, doesEmailExist, doesUsernameExist, saveVideosInUser, removeVideoInUser } from "../dao/userDAO"
+import { saveUser, findUserByFilter, findUserByEmailAndPassword, findUserByFilterAndUpdate, doesIdExist, doesEmailExist, doesUsernameExist, saveVideosInUser, removeVideoInUser, findUserById, deleteUserbyEmail, saveCommentInUser, deleteCommentInUser } from "../dao/userDAO"
 import UserDBModel from "../db/userDBModel";
 import UserDTO from "../dto/userDTO";
 
 
-export const joinUser = async (email, username, password, name, location, needVideos) => {
+export const joinUser = async (email, username, password, name, location, statusId) => {
+    
     const userDTO = new UserDTO();
     userDTO.email = email;
     userDTO.username = username;
     userDTO.password =  password;
     userDTO.name = name;
     userDTO.location = location;
-    await saveUser(userDTO.toUserDBModel(), needVideos);
-}
-
-export const joinGithubUser = async (userDTO, needVideos) => {
-    const userDBModel = await saveUser(userDTO.toUserDBModel(), needVideos);
+    userDTO.status = statusId;
+    
+    const userDBModel = await saveUser(userDTO.toUserDBModel(), false);
     if(userDBModel)
         return new UserDTO(userDBModel);
     return undefined;
 }
 
-export const login = async (email, password, needVideos) => {
-    const userDBModel = await findUserByEmailAndPassword(email, password, needVideos);
+export const joinGithubUser = async (userDTO) => {
+    const userDBModel = await saveUser(userDTO.toUserDBModel(), false);
     if(userDBModel)
         return new UserDTO(userDBModel);
     return undefined;
 }
 
-export const editUser = async (email, username, name, location, avatarUrl, needVideos) => {
-    const userDBModel = await findUserByFilterAndUpdate({email}, {username, name, location, avatarUrl}, needVideos);
-    return new UserDTO(userDBModel);
-}
-
-export const getUserByEmail = async(email, needVideos) => {
-    const userDBModel = await findUserByFilter({email}, needVideos);
+export const getUserSession = async (_id) => {
+    const userDBModel = await findUserById(_id, true);
     if(userDBModel)
         return new UserDTO(userDBModel);
     return undefined;
 }
 
-export const getUserByUsername = async(username, needVideos) => {
-    const userDBModel = await findUserByFilter({username}, needVideos);
+export const login = async (email, password) => {
+    const userDBModel = await findUserByEmailAndPassword(email, password, true);
     if(userDBModel)
         return new UserDTO(userDBModel);
     return undefined;
 }
 
-export const checkEmail = async(email, needVideos) => {
-    return await doesEmailExist(email, needVideos);
+export const editUser = async (email, username, name, location, avatarUrl) => {
+    const userDBModel = await findUserByFilterAndUpdate({email}, {username, name, location, avatarUrl}, true);
+    if(userDBModel)
+        return new UserDTO(userDBModel);
+    return undefined;
 }
 
-export const checkUsername = async(username, needVideos) => {
-    return await doesUsernameExist(username, needVideos);
+export const getUserByEmail = async(email) => {
+    const userDBModel = await findUserByFilter({email}, false);
+    if(userDBModel)
+        return new UserDTO(userDBModel);
+    return undefined;
+}
+
+export const getUserProfile = async(username) => {
+    const userDBModel = await findUserByFilter({username}, true);
+    if(userDBModel)
+        return new UserDTO(userDBModel);
+    return undefined;
+}
+
+export const checkUserId = async (_id) => {
+    return await doesIdExist(_id, false);
+}
+
+export const checkEmail = async(email) => {
+    return await doesEmailExist(email, false);
+}
+
+export const checkUsername = async(username) => {
+    return await doesUsernameExist(username, false);
 }
 
 export const getGithubEmail = async(code) => {
@@ -111,12 +130,12 @@ export const getGithubEmail = async(code) => {
     return userDTO;
 }
 
-export const updateAvatar = async (email, avatarUrl, needVideos) => {
-    return await findUserByFilterAndUpdate({email}, {avatarUrl}, needVideos);
+export const updateAvatar = async (email, avatarUrl) => {
+    return await findUserByFilterAndUpdate({email}, {avatarUrl}, true);
 }
 
-export const checkUser = async (email, password, needVideos) => {
-    const userDBModel = await findUserByEmailAndPassword(email, password, needVideos);
+export const checkUser = async (email, password) => {
+    const userDBModel = await findUserByEmailAndPassword(email, password, false);
     if(userDBModel)
         return true;
     return false; 
@@ -133,15 +152,36 @@ export const updatePassword = async (email, password, needVideos) => {
 }
 
 
-export const updateVideosInUser = async (userId, videoId, needVideos) => {
-    const updatedUser = await saveVideosInUser(userId, videoId, needVideos);
+export const updateVideosInUser = async (userId, videoId) => {
+    const updatedUser = await saveVideosInUser(userId, videoId, true);
     if(updatedUser)
         return new UserDTO(updatedUser);
     return undefined;
 }
 
-export const deleteVideoInUser = async (userId, videoId, needVideos) => {
-    const updatedUser = await removeVideoInUser(userId, videoId, needVideos);
+export const deleteVideoInUser = async (userId, videoId) => {
+    const updatedUser = await removeVideoInUser(userId, videoId, true);
+    if(updatedUser)
+        return new UserDTO(updatedUser);
+    return undefined;
+}
+
+export const deleteUser = async (email) => {
+    const updatedUser = await deleteUserbyEmail(email, true);
+    if(updatedUser)
+        return new UserDTO(updatedUser);
+    return undefined;
+}
+
+export const addCommentOnUser = async (userId, commentId) => {
+    const updatedUser = await saveCommentInUser(userId, commentId, true);
+    if(updatedUser)
+        return new UserDTO(updatedUser);
+    return undefined;
+}
+
+export const deleteCommentOnUser = async (userId, commentId) => {
+    const updatedUser = await deleteCommentInUser(userId, commentId, true);
     if(updatedUser)
         return new UserDTO(updatedUser);
     return undefined;

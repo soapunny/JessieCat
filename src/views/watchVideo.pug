@@ -1,5 +1,5 @@
 extends base
-
+include mixins/comment
 
 
 block content
@@ -30,10 +30,10 @@ block content
                         a(href='#')=hashtag
             h2.videoTitle #{video.title}
             div.viewLikeDate
-                span.view Views #{video.meta.view}
+                span.view Views #{video.view}
                 a(href='#').heart
                     i(class="fa-regular fa-heart")
-                span.like #{video.meta.like}
+                span.like #{video.likes}
                 span.date Date: #{formatUtil.toSimpleDate(video.date)}
             div.management
                 if userDTO && (String(video.owner._id) === userDTO._id)
@@ -44,6 +44,28 @@ block content
                 img(src=video.owner.avatarUrl).ownerAvatar 
                 a(href=`/user/profile/${video.owner.username}` class='ownername')=video.owner.username            
             h3.videoDescription #{video.description}
+    
+    section.commentSection
+        div.commentFilter
+            h3.commentCnt Comment: #{video.comments.length}
+            a.filter#filter Sort by.
+        if login
+            div.newComment
+                div.userInfo#userInfo
+                    img(src=userDTO.avatarUrl).userAvatar
+                    h3.username #{userDTO.username}
+                form(method='post').commentForm#commentForm
+                    textarea#commentArea.commentArea(name="comment" cols='80' rows='8')
+                    input(type='submit' value='Post').submit#submit
+
+        div.savedComments
+            if video.comments
+                each comment in video.comments
+                    if userDTO
+                        +comment(comment, userDTO._id)
+                    else
+                        +comment(comment, undefined)
 
 block scripts
     script(src="/static/js/videoPlayer.js")
+    script(src="/static/js/commentSection.js")

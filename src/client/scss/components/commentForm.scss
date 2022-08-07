@@ -1,0 +1,147 @@
+.commentSection{
+    width: 80vw;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+
+    .commentFilter{
+        width: 100%;
+        height: 5vh;
+        display: flex;
+        align-items: center;
+        .commentCnt{
+
+        }
+        .filter{
+            padding-left: 2rem;
+        }
+    }
+
+    .newComment{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 7vh;
+        border-top-color: $border_color;
+        border-top-width: $border_width;
+        border-top-style: solid;
+
+        .userInfo{
+            width: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .userAvatar{
+                width: $avatar_width;
+                height: $avatar_height;
+            }
+            .username{
+                padding-left: 1rem;
+            }
+        }
+        .commentForm{
+            width: 60%;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            .commentArea{
+                width: 100%;
+                height: inherit;
+                font-size: 1.2rem;
+                color: white;
+                box-sizing: border-box;
+                border-width: $border_width;
+                border-style: solid;
+                border-color: $border_color;
+                border-right-width: $border_width/2;
+                border-top-left-radius: $border_radius;
+                border-bottom-left-radius: $border_radius;
+                background-color: $bg_color;
+                outline: none;
+                resize: none;
+                
+            }
+            .submit{
+                width: 20%;
+                height: 100%;
+                font-size: 1.2rem;
+                color: $border_color;
+                background-color: $bg_color;
+                box-sizing: border-box;
+                border-width: $border_width;
+                border-style: solid;
+                border-color: $border_color;
+                border-left-width: $border_width/2;
+                border-top-right-radius: $border_radius;
+                border-bottom-right-radius: $border_radius;
+                outline: none;
+                &:hover{
+                    background-color: $border_color;
+                    color: white;
+                    cursor: pointer;
+                    transition: opacity 0.3s linear;
+                    transition: background-color, 0.3s, linear;
+                    transition: color 0.3s linear;
+                }
+            }
+        }
+    }
+
+    .savedComments{
+        width: 100%;
+        height: max-content;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(auto, minMax(7vh, max-content));
+
+        .videoComment{
+            width: 100%;
+            height: minMax(5vh, max-content);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+
+            display: flex;
+            align-items: center;
+
+            .leftMenu{
+                width: minMax(max-content, 5%);
+
+                display: flex;
+                align-items: center;
+                .avatar {
+                    width: $avatar_width;
+                    height: $avatar_height;
+                }
+            }
+            .rightMenu{
+                padding-left: 1rem;
+                width: 95%;
+                .usernameArea{
+                    display: flex;
+                    align-items: center;
+                    padding-bottom: 0.5rem;
+                    .username{
+                        font-size: $basic_component_font_size;
+                    }
+                    .date{
+                        padding-left: 1rem;
+                        font-size: 0.9rem;
+                    }
+                }
+                .messageArea{
+                    display: flex;
+
+                    .comment{
+                        color: white;
+                        width: 90%;
+                    }
+                    .deleteBtn{
+                        color: red;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -8,10 +8,9 @@ const videoSchema = new mongoose.Schema({
     owner: {type: mongoose.Schema.Types.ObjectId, required: true, trim: true, ref: 'User'},
     date: {type: Date, required: true, default: Date.now },
     hashtags: [{type: String, trim: true}],
-    meta: {
-        like: {type: Number, required: true, default: 0},
-        view: {type: Number, required: true, default: 0},
-    },
+    comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}],
+    likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'Like'}],
+    view: {type: Number, required: true, default: 0},
 });
 
 //middleware
