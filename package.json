@@ -7,9 +7,13 @@
     "url": "git+https://github.com/soapunny/JessieCat.git"
   },
   "scripts": {
+    "start": "node build/server/init.js",
+    "build": "npm run build:server && npm run build:assets",
+    "build:server": "babel src -d build",
+    "build:assets": "webpack --mode=production",
     "server": "webpack serve",
     "dev:server": "nodemon",
-    "dev:assets": "webpack"
+    "dev:assets": "webpack --mode=development -w"
   },
   "author": "Soapunny<soapunny@gmail.com>",
   "license": "MIT",
@@ -35,6 +39,7 @@
     "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
+    "@babel/cli": "^7.18.10",
     "@babel/core": "^7.18.5",
     "@babel/node": "^7.18.5",
     "@babel/preset-env": "^7.18.2",

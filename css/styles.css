@@ -1,0 +1,942 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.videoSection {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 10vh repeat(auto, 85vh);
+  grid-template-columns: 80vw;
+  justify-content: center;
+  padding-bottom: 10vh;
+}
+.videoSection .videoSectionTitleArea {
+  width: 90vw;
+  align-self: center;
+  justify-self: left;
+}
+.videoSection .videoSectionTitleArea .videoSectionTitle {
+  background-color: #A9E1ED;
+  color: white;
+  font-size: 2rem;
+}
+.videoSection .videoArticle {
+  padding-top: 5vh;
+  height: 100%;
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom-width: 0.2rem;
+  border-bottom-style: solid;
+  border-bottom-color: white;
+}
+.videoSection .videoArticle div {
+  height: 80vh;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 10% 10% 70% 5% 5%;
+  grid-template-columns: 80vw;
+  align-items: center;
+}
+.videoSection .videoArticle div .userInfo {
+  display: flex;
+  align-items: center;
+}
+.videoSection .videoArticle div .userInfo .avatar {
+  width: 2rem;
+  height: 2rem;
+}
+.videoSection .videoArticle div .userInfo .username {
+  padding-left: 0.5rem;
+  color: white;
+  font-size: 1.6rem;
+  font-weight: bold;
+  opacity: 1;
+}
+.videoSection .videoArticle div .userInfo .username:hover {
+  color: #ffe4af;
+}
+.videoSection .videoArticle div .title {
+  font-size: 1.2rem;
+  align-self: center;
+  font-weight: bold;
+}
+.videoSection .videoArticle div .video {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+.videoSection .videoArticle div .likeComment {
+  display: flex;
+  font-size: 1.5rem;
+  align-items: center;
+}
+.videoSection .videoArticle div .likeComment .like {
+  font-size: 1rem;
+  padding-left: 0.5rem;
+}
+.videoSection .videoArticle div .likeComment .comment {
+  padding-left: 1rem;
+}
+.videoSection .videoArticle div .descriptionHashtags {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.videoSection .videoArticle div .descriptionHashtags .description {
+  padding-right: 1rem;
+}
+.videoSection .videoArticle div .descriptionHashtags .hashtag {
+  padding-left: 0.5rem;
+}
+
+header {
+  background-color: #212121;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  width: 100%;
+  height: 10vh;
+  border-bottom-width: 0.2rem;
+  border-bottom-color: white;
+  border-bottom-style: solid;
+}
+header nav {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  align-items: center;
+}
+header nav .header_nav_left {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-weight: bold;
+}
+header nav .header_nav_middle {
+  font-size: 1.2rem;
+  justify-self: center;
+  font-weight: bold;
+}
+header nav .header_nav_middle .header_logo {
+  color: white;
+}
+header nav .header_nav_right {
+  justify-self: right;
+}
+header nav .header_nav_right form .searchBox {
+  width: 12rem;
+  text-indent: 1rem;
+  font-size: 1.2rem;
+  border-radius: 0.3rem;
+  border-width: 0.2rem;
+  border-style: solid;
+  border-color: #A9E1ED;
+  background-color: black;
+  outline: none;
+  color: inherit;
+}
+header nav .header_nav_right form .searchBtn {
+  margin-left: 0.1rem;
+  font-size: 1.2rem;
+  border-radius: 0.3rem;
+  border-width: 0.2rem;
+  border-style: solid;
+  border-color: #A9E1ED;
+  color: inherit;
+  background-color: black;
+}
+header nav .header_nav_right form .searchBtn:hover {
+  color: white;
+  cursor: pointer;
+  background-color: #A9E1ED;
+}
+
+footer {
+  width: 100vw;
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  bottom: 0;
+}
+footer .footerArea {
+  width: inherit;
+  height: 15vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+footer .footerArea .copyright {
+  position: absolute;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-stretch: ultra-expanded;
+  background-color: #212121;
+}
+footer .footerArea .footerImg {
+  width: inherit;
+  height: inherit;
+  -o-object-fit: cover;
+     object-fit: cover;
+  z-index: -99;
+}
+
+.formSection {
+  width: 80vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.formSection .titleFrame {
+  width: 60vw;
+  height: 12vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+.formSection .titleFrame .pagetitle {
+  text-align: center;
+  font-weight: bold;
+}
+.formSection .formFrame {
+  width: 60vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.formSection .formFrame .warning {
+  color: red;
+  font-size: 1.5rem;
+  padding-bottom: 3vh;
+}
+.formSection .formFrame form {
+  width: 40vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.formSection .formFrame form div {
+  width: 100%;
+  height: 8vh;
+  display: flex;
+}
+.formSection .formFrame form div input {
+  text-indent: 1rem;
+  height: 6vh;
+  width: 100%;
+  font-size: 1.5rem;
+  box-sizing: border-box;
+  border-radius: 0.3rem;
+  border-width: 0.2rem;
+  border-style: solid;
+  border-color: #A9E1ED;
+  background-color: black;
+  outline: none;
+  color: inherit;
+}
+.formSection .formFrame form div .socialTab {
+  width: 100%;
+  height: 6vh;
+  font-size: 1.5rem;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.formSection .formFrame form div .socialTab a {
+  width: 100%;
+  font-size: 1rem;
+}
+.formSection .formFrame form div .submit {
+  text-indent: 0;
+}
+.formSection .formFrame form div .submit:hover {
+  color: white;
+  cursor: pointer;
+  background-color: #A9E1ED;
+}
+.formSection .formFrame form .recorder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.formSection .formFrame form .recorder .preview {
+  width: 100vw;
+  height: 95vh;
+  background-color: black;
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg); /* Safari and Chrome */
+  -moz-transform: rotateY(180deg); /* Firefox */
+}
+.formSection .formFrame form .recorder .hidden {
+  display: none;
+}
+.formSection .formFrame form .recorder .recordBtn {
+  display: flex;
+  width: 100%;
+  height: 6vh;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 1;
+  font-weight: bold;
+  font-size: 1.5rem;
+  box-sizing: border-box;
+  border-radius: 0.3rem;
+  border-width: 0.2rem;
+  border-style: solid;
+  border-color: #A9E1ED;
+  background-color: black;
+  outline: none;
+  cursor: pointer;
+}
+.formSection .formFrame form .recorder .recordBtn:hover {
+  color: white;
+  background-color: #A9E1ED;
+}
+.formSection .formFrame form .recorder .redFont {
+  color: red;
+}
+.formSection .formFrame form .toFullScreen .preview {
+  width: 100vw;
+  height: 94vh;
+}
+.formSection .formFrame form .toFullScreen .recordBtn {
+  width: 100vw;
+  height: 6vh;
+}
+.formSection .formFrame form .fileArea {
+  display: flex;
+  width: 100%;
+  height: 8vh;
+}
+.formSection .formFrame form .fileArea .label {
+  display: flex;
+  width: 100%;
+  height: 6vh;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  box-sizing: border-box;
+  border-radius: 0.3rem;
+  border-width: 0.2rem;
+  border-style: solid;
+  border-color: #A9E1ED;
+  background-color: black;
+  outline: none;
+  cursor: pointer;
+}
+.formSection .formFrame form .fileArea .label:hover {
+  color: white;
+  background-color: #A9E1ED;
+}
+.formSection .formFrame form .fileArea .file {
+  display: none;
+}
+
+.profileSection {
+  width: 80vw;
+  height: auto;
+}
+.profileSection .userInfoBig {
+  border-bottom-color: white;
+  border-bottom-width: 0.2rem;
+  border-bottom-style: solid;
+}
+.profileSection .editInfo {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 3vw;
+}
+.profileSection .userVideos {
+  width: 80vw;
+  height: 130vh;
+  padding-top: 11vh;
+  display: grid;
+  grid-template-columns: 25vw 25vw 25vw;
+  grid-template-rows: 40vh 40vh 40vh;
+  justify-content: space-between;
+  align-content: space-between;
+}
+.profileSection .userVideos .videoArticle {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 80% 10% 10%;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  align-items: center;
+  background-color: #1B2121;
+}
+.profileSection .userVideos .videoArticle .videoFrame {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+}
+.profileSection .userVideos .videoArticle .videoFrame .video {
+  max-width: 100%;
+}
+.profileSection .userVideos .videoArticle .meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.profileSection .userVideos .videoArticle .meta .heart {
+  padding-left: 1rem;
+}
+.profileSection .userVideos .videoArticle .meta .like {
+  padding-left: 0.3rem;
+}
+
+.watchVideoSection {
+  padding-top: 2vh;
+  padding-bottom: 10vh;
+  width: 80vw;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  display: grid;
+  grid-template-rows: 60vh 10vh 10vh;
+  grid-template-columns: 1fr;
+  background-color: #1B2121;
+}
+.watchVideoSection .videoFrame {
+  outline: none;
+  position: relative;
+  padding-top: 5vh;
+  width: 80vw;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  background-color: #1F1F1F;
+}
+.watchVideoSection .videoFrame .video {
+  max-width: 80vw;
+  max-height: 50vh;
+  justify-self: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+.watchVideoSection .videoFrame .fullScreenVideo {
+  max-width: 100vw;
+  max-height: 100vh;
+}
+.watchVideoSection .videoFrame .controlPanel {
+  position: absolute;
+  align-self: flex-end;
+  background-color: black;
+  z-index: 100;
+  width: inherit;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  opacity: 0.8;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.watchVideoSection .videoFrame .controlPanel .topPanel {
+  width: inherit;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+}
+.watchVideoSection .videoFrame .controlPanel .topPanel .timeline {
+  width: inherit;
+  background-color: #A9E1ED;
+}
+.watchVideoSection .videoFrame .controlPanel .bottomPanel {
+  color: white;
+  padding-top: 1vh;
+  width: inherit;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+.watchVideoSection .videoFrame .controlPanel .bottomPanel .bottomFrontPanel {
+  width: 60%;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  display: flex;
+  align-items: center;
+}
+.watchVideoSection .videoFrame .controlPanel .bottomPanel .bottomFrontPanel .play {
+  font-size: 1.5rem;
+  padding-left: 1rem;
+}
+.watchVideoSection .videoFrame .controlPanel .bottomPanel .bottomFrontPanel .currentTime {
+  padding-left: 1rem;
+}
+.watchVideoSection .videoFrame .controlPanel .bottomPanel .bottomBackPanel {
+  width: 40%;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.watchVideoSection .videoFrame .controlPanel .bottomPanel .bottomBackPanel .mute {
+  font-size: 1.3rem;
+}
+.watchVideoSection .videoFrame .controlPanel .bottomPanel .bottomBackPanel .fullscreen {
+  font-size: 1.1rem;
+  padding-left: 1rem;
+}
+.watchVideoSection .videoFrame .hidden {
+  display: none;
+}
+.watchVideoSection .topMenu {
+  height: 100%;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  border-bottom-color: white;
+  border-bottom-width: 0.2rem;
+  border-bottom-style: solid;
+}
+.watchVideoSection .topMenu .hashtags {
+  display: flex;
+}
+.watchVideoSection .topMenu .hashtags li {
+  padding-right: 0.5rem;
+}
+.watchVideoSection .topMenu .videoTitle {
+  font-size: 1.6rem;
+  color: white;
+}
+.watchVideoSection .topMenu .viewLikeDate {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.watchVideoSection .topMenu .viewLikeDate .view {
+  padding-right: 0.3rem;
+}
+.watchVideoSection .topMenu .viewLikeDate .heart {
+  padding-right: 0.3rem;
+}
+.watchVideoSection .topMenu .viewLikeDate .like {
+  padding-right: 0.3rem;
+}
+.watchVideoSection .topMenu .viewLikeDate .date {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  padding-left: 3rem;
+}
+.watchVideoSection .topMenu .management {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.watchVideoSection .bottomMenu {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  padding-top: 2rem;
+}
+.watchVideoSection .bottomMenu .ownerInfo {
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  display: flex;
+  align-items: center;
+}
+.watchVideoSection .bottomMenu .ownerInfo .ownerAvatar {
+  width: 2rem;
+  height: 2rem;
+}
+.watchVideoSection .bottomMenu .ownerInfo .ownername {
+  font-size: 1.6rem;
+  padding-left: 0.5rem;
+}
+.watchVideoSection .bottomMenu .videoDescription {
+  color: white;
+  padding-top: 1rem;
+  padding-left: 2rem;
+}
+
+.commentSection {
+  width: 80vw;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+}
+.commentSection .commentFilter {
+  width: 100%;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+}
+.commentSection .commentFilter .filter {
+  padding-left: 2rem;
+}
+.commentSection .newComment {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 7vh;
+  border-top-color: #A9E1ED;
+  border-top-width: 0.2rem;
+  border-top-style: solid;
+}
+.commentSection .newComment .userInfo {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.commentSection .newComment .userInfo .userAvatar {
+  width: 2rem;
+  height: 2rem;
+}
+.commentSection .newComment .userInfo .username {
+  padding-left: 1rem;
+}
+.commentSection .newComment .commentForm {
+  width: 60%;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+}
+.commentSection .newComment .commentForm .commentArea {
+  width: 100%;
+  height: inherit;
+  font-size: 1.2rem;
+  color: white;
+  box-sizing: border-box;
+  border-width: 0.2rem;
+  border-style: solid;
+  border-color: #A9E1ED;
+  border-right-width: 0.1rem;
+  border-top-left-radius: 0.3rem;
+  border-bottom-left-radius: 0.3rem;
+  background-color: #212121;
+  outline: none;
+  resize: none;
+}
+.commentSection .newComment .commentForm .submit {
+  width: 20%;
+  height: 100%;
+  font-size: 1.2rem;
+  color: #A9E1ED;
+  background-color: #212121;
+  box-sizing: border-box;
+  border-width: 0.2rem;
+  border-style: solid;
+  border-color: #A9E1ED;
+  border-left-width: 0.1rem;
+  border-top-right-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+  outline: none;
+}
+.commentSection .newComment .commentForm .submit:hover {
+  background-color: #A9E1ED;
+  color: white;
+  cursor: pointer;
+  transition: opacity 0.3s linear;
+  transition: background-color, 0.3s, linear;
+  transition: color 0.3s linear;
+}
+.commentSection .savedComments {
+  width: 100%;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(auto, minMax(7vh, -webkit-max-content));
+  grid-template-rows: repeat(auto, minMax(7vh, max-content));
+}
+.commentSection .savedComments .videoComment {
+  width: 100%;
+  height: minMax(5vh, -webkit-max-content);
+  height: minMax(5vh, -moz-max-content);
+  height: minMax(5vh, max-content);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+.commentSection .savedComments .videoComment .leftMenu {
+  width: minMax(-webkit-max-content, 5%);
+  width: minMax(-moz-max-content, 5%);
+  width: minMax(max-content, 5%);
+  display: flex;
+  align-items: center;
+}
+.commentSection .savedComments .videoComment .leftMenu .avatar {
+  width: 2rem;
+  height: 2rem;
+}
+.commentSection .savedComments .videoComment .rightMenu {
+  padding-left: 1rem;
+  width: 95%;
+}
+.commentSection .savedComments .videoComment .rightMenu .usernameArea {
+  display: flex;
+  align-items: center;
+  padding-bottom: 0.5rem;
+}
+.commentSection .savedComments .videoComment .rightMenu .usernameArea .username {
+  font-size: 1.2rem;
+}
+.commentSection .savedComments .videoComment .rightMenu .usernameArea .date {
+  padding-left: 1rem;
+  font-size: 0.9rem;
+}
+.commentSection .savedComments .videoComment .rightMenu .messageArea {
+  display: flex;
+}
+.commentSection .savedComments .videoComment .rightMenu .messageArea .comment {
+  color: white;
+  width: 90%;
+}
+.commentSection .savedComments .videoComment .rightMenu .messageArea .deleteBtn {
+  color: red;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: background-color, 0.3s, linear;
+  transition: color 0.3s linear;
+  transition: opacity 0.3s linear;
+}
+a:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+button {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: background-color, 0.3s, linear;
+  transition: color 0.3s linear;
+  transition: opacity 0.3s linear;
+}
+button:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.userInfoSmall {
+  display: flex;
+  align-items: center;
+}
+.userInfoSmall img {
+  width: 2rem;
+  height: 2rem;
+}
+.userInfoSmall .username {
+  padding-left: 0.5rem;
+  color: white;
+}
+
+.userInfoBig {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.userInfoBig img {
+  background-color: black;
+  max-height: 100%;
+}
+.userInfoBig .username {
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  padding-left: 1rem;
+  font-weight: bold;
+  color: white;
+  font-size: 1.6rem;
+}
+.userInfoBig .userLevel {
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  padding-left: 1rem;
+  padding-top: 0.3rem;
+  font-weight: bold;
+}
+
+.width-fit-video {
+  width: 100%;
+}
+
+.height-fit-video {
+  height: 100%;
+}
+
+:hover {
+  transition: opacity 0.3s linear;
+  transition: background-color, 0.3s, linear;
+  transition: color 0.3s linear;
+}
+
+.locationSign {
+  font-size: 1.2rem;
+}
+
+main {
+  padding-top: 11vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.noVideo {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.buttonNoBorder {
+  background-color: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+}
+
+@-webkit-keyframes slideEffect {
+  0% {
+    transform: translateX(-300px);
+  }
+  50% {
+    transform: translateX(300px);
+  }
+  100% {
+    transform: translateX(0px);
+    display: none;
+  }
+}
+
+@keyframes slideEffect {
+  0% {
+    transform: translateX(-300px);
+  }
+  50% {
+    transform: translateX(300px);
+  }
+  100% {
+    transform: translateX(0px);
+    display: none;
+  }
+}
+.message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-animation: slideEffect 5s both;
+          animation: slideEffect 5s both;
+  -webkit-animation-delay: 0.5s;
+          animation-delay: 0.5s;
+}
+.message .error {
+  color: red;
+  font-size: 1.5rem;
+}
+.message .info {
+  color: white;
+  font-size: 1.5rem;
+}
+
+body {
+  height: auto;
+  width: 100vw;
+  overflow-x: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #212121;
+  color: #A9E1ED;
+}
