@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { userLevel, userStatus } from "../names/names";
 
 const userSchema = new mongoose.Schema({
