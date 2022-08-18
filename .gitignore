@@ -363,3 +363,6 @@ privacy/
 
 # assets
 /assets
+
+#build
+/build
