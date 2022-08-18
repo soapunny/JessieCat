@@ -8,9 +8,8 @@ import "../db/likeDBModel";
 import "../db/statusDBModel";
 import app from "./server.js";
 
-const PORT = 12080;
-const HOSTNAME = "127.0.0.1";
+const PORT = process.env.PORT || 12080;
 
-app.listen(PORT, HOSTNAME, () => {
+app.listen(PORT, () => {
     console.log(`Server listening on port http://${HOSTNAME}:${PORT}`);
 });
