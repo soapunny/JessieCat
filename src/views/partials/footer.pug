@@ -1,3 +1,13 @@
 div.footerArea
     h3.copyright &copy: #{new Date().getFullYear()} Jessie Cat. All right reserved.
     img(src='https://jessiecat.s3.us-east-2.amazonaws.com/upload/img/footer.jpg').footerImg
+
+div.phoneFooter
+    a.homeMenu(href="/")
+        i(class="fa-solid fa-house")
+    a.searchMenu(href="")
+        i(class="fa-solid fa-magnifying-glass")
+    a.videoMenu(href="/video/random")
+        i(class="fa-solid fa-video")
+    a.loginMenu(href=`${userDTO ? "/user/profile/"+userDTO.username : "/login"}`)
+        i(class='fa-solid fa-user')

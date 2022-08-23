@@ -1,6 +1,15 @@
 
 .profileSection{
-    width: 80vw;
+    @include smartPhone(){
+        width: 100vw;
+        padding-bottom: 10vh;
+    }
+    @include tablet(){
+        width: 80vw;
+    }
+    @include laptop(){
+        width: 80vw;
+    }
     height: auto;
     .userInfoBig{
         border-bottom-color: $videoArticle_border_bottom_color;
@@ -15,21 +24,23 @@
     
         }
     }
-    .userVideos{
-        width: 80vw;
-        height: 130vh;
+    .title{
         padding-top: $main_padding_top;
+        font-size: 1.5rem;
+        padding-bottom: 1rem;
+    }
+    .userVideos{
+        width: 100%;
+        height: auto;
         display: grid;
-        grid-template-columns: 25vw 25vw 25vw;
-        grid-template-rows: 40vh 40vh 40vh;
-        justify-content: space-between;
-        align-content: space-between;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: repeat(auto, 30vh);
     
         .videoArticle{
                 width: 100%;
                 height: 100%;
                 display: grid;
-                grid-template-rows: 80% 10% 10%;
+                grid-template-rows: 100%;
                 grid-template-columns: 1fr;
                 justify-content: center;
                 align-items: center;
@@ -37,29 +48,21 @@
     
                 .videoFrame{
                     width: 100%;
-                    height: 100%;
+                    @include smartPhone(){
+                        height: 15vh;
+                    }
+                    @include tablet(){
+                        height: 20vh;
+                    }
+                    @include laptop(){
+                        height: 25vh;
+                    }
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     overflow-y: hidden;
                     .video{
                         max-width: 100%;
-                    }
-                }
-                .title{
-                }
-                .meta{
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    .view{
-    
-                    }
-                    .heart{
-                        padding-left: 1rem;
-                    }
-                    .like{
-                        padding-left: 0.3rem;
                     }
                 }
         }

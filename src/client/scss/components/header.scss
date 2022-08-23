@@ -10,9 +10,19 @@ header{
     nav{
         height: 100%;
         display: grid;
-        grid-template-columns: 2fr 1fr 2fr;
+        
+        @include smartPhone(){
+            grid-template-areas: "1fr";
+        }
+        @include tablet(){
+            grid-template-columns: 2fr 1fr 2fr;
+        }
+        @include laptop(){
+            grid-template-columns: 2fr 1fr 2fr;
+        }
         align-items: center;
         .header_nav_left{
+            
             display: flex;
             align-items: center;
             justify-content: space-evenly;
@@ -20,7 +30,9 @@ header{
             li{
                 
             }
-            
+            @include smartPhone(){
+                display: none;
+            }
         }
         .header_nav_middle{
             font-size: 1.2rem;
@@ -60,6 +72,10 @@ header{
                         background-color: $border_color;
                     }
                 }
+            }
+            
+            @include smartPhone(){
+                display: none;
             }
         }
     }

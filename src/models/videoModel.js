@@ -1,10 +1,22 @@
 import VideoDTO from "../dto/videoDTO";
 import FormatUtil from "../utils/formatUtil";
-import {findHomeVideos, findVideosByFilter, findVideoById, saveVideo, findOneByFilterAndUpdate, findOneByIdAndDelete, saveCommentInVideo, deleteCommentInVideo} from "../dao/videoDAO";
+import {findHomeVideos, findRandomVideos, findVideosByFilter, findVideoById, saveVideo, findOneByFilterAndUpdate, findOneByIdAndDelete, saveCommentInVideo, deleteCommentInVideo} from "../dao/videoDAO";
 import CommentDTO from "../dto/commentDTO";
 
 export const getHomeVideos = async () => {
     const videos = await findHomeVideos();
+    if(videos){
+        const videoDTOs = [];
+        for(let i=0;i<videos.length;i++){
+            videoDTOs.push(new VideoDTO(videos[i]));
+        }
+        return videoDTOs;
+    }
+    return undefined;
+}
+
+export const getRandomVideos = async () => {
+    const videos = await findRandomVideos();
     if(videos){
         const videoDTOs = [];
         for(let i=0;i<videos.length;i++){

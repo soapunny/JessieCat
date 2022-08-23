@@ -56,24 +56,65 @@ table {
   width: 100%;
   display: grid;
   grid-template-rows: 10vh repeat(auto, 85vh);
-  grid-template-columns: 80vw;
   justify-content: center;
   padding-bottom: 10vh;
 }
+@media screen and (min-width: 0px) and (max-width: 499px) {
+  .videoSection {
+    grid-template-columns: 100vw;
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 999px) {
+  .videoSection {
+    grid-template-columns: 80vw;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .videoSection {
+    grid-template-columns: 80vw;
+  }
+}
 .videoSection .videoSectionTitleArea {
-  width: 90vw;
   align-self: center;
   justify-self: left;
+}
+@media screen and (min-width: 0px) and (max-width: 499px) {
+  .videoSection .videoSectionTitleArea {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 999px) {
+  .videoSection .videoSectionTitleArea {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .videoSection .videoSectionTitleArea {
+    width: 90vw;
+  }
 }
 .videoSection .videoSectionTitleArea .videoSectionTitle {
   background-color: #A9E1ED;
   color: white;
-  font-size: 2rem;
+}
+@media screen and (min-width: 0px) and (max-width: 499px) {
+  .videoSection .videoSectionTitleArea .videoSectionTitle {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 999px) {
+  .videoSection .videoSectionTitleArea .videoSectionTitle {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .videoSection .videoSectionTitleArea .videoSectionTitle {
+    font-size: 2rem;
+  }
 }
 .videoSection .videoArticle {
   padding-top: 5vh;
   height: 100%;
-  width: 80vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -82,13 +123,44 @@ table {
   border-bottom-style: solid;
   border-bottom-color: white;
 }
+@media screen and (min-width: 0px) and (max-width: 499px) {
+  .videoSection .videoArticle {
+    width: 100vw;
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 999px) {
+  .videoSection .videoArticle {
+    width: 100vw;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .videoSection .videoArticle {
+    width: 80vw;
+  }
+}
 .videoSection .videoArticle div {
   height: 80vh;
   width: 100%;
   display: grid;
-  grid-template-rows: 10% 10% 70% 5% 5%;
-  grid-template-columns: 80vw;
   align-items: center;
+}
+@media screen and (min-width: 0px) and (max-width: 499px) {
+  .videoSection .videoArticle div {
+    grid-template-rows: 10% 10% 60% 5% 15%;
+    grid-template-columns: 100%;
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 999px) {
+  .videoSection .videoArticle div {
+    grid-template-rows: 10% 10% 60% 5% 15%;
+    grid-template-columns: 100%;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .videoSection .videoArticle div {
+    grid-template-rows: 10% 10% 70% 5% 5%;
+    grid-template-columns: 80vw;
+  }
 }
 .videoSection .videoArticle div .userInfo {
   display: flex;
@@ -119,6 +191,7 @@ table {
   background-color: black;
 }
 .videoSection .videoArticle div .likeComment {
+  height: 100%;
   display: flex;
   font-size: 1.5rem;
   align-items: center;
@@ -131,7 +204,7 @@ table {
   padding-left: 1rem;
 }
 .videoSection .videoArticle div .descriptionHashtags {
-  align-self: center;
+  height: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -160,14 +233,33 @@ header {
 header nav {
   height: 100%;
   display: grid;
-  grid-template-columns: 2fr 1fr 2fr;
   align-items: center;
+}
+@media screen and (min-width: 0px) and (max-width: 499px) {
+  header nav {
+    grid-template-areas: "1fr";
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 999px) {
+  header nav {
+    grid-template-columns: 2fr 1fr 2fr;
+  }
+}
+@media screen and (min-width: 1000px) {
+  header nav {
+    grid-template-columns: 2fr 1fr 2fr;
+  }
 }
 header nav .header_nav_left {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   font-weight: bold;
+}
+@media screen and (min-width: 0px) and (max-width: 499px) {
+  header nav .header_nav_left {
+    display: none;
+  }
 }
 header nav .header_nav_middle {
   font-size: 1.2rem;
@@ -207,35 +299,105 @@ header nav .header_nav_right form .searchBtn:hover {
   cursor: pointer;
   background-color: #A9E1ED;
 }
+@media screen and (min-width: 0px) and (max-width: 499px) {
+  header nav .header_nav_right {
+    display: none;
+  }
+}
 
-footer {
-  width: 100vw;
-  height: 30vh;
-  display: flex;
-  align-items: center;
-  bottom: 0;
+@media screen and (min-width: 1000px) {
+  footer {
+    width: 100vw;
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    bottom: 0;
+  }
+  footer .footerArea {
+    width: inherit;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  footer .footerArea .copyright {
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-stretch: ultra-expanded;
+    background-color: #212121;
+  }
+  footer .footerArea .footerImg {
+    width: inherit;
+    height: inherit;
+    -o-object-fit: cover;
+       object-fit: cover;
+    z-index: -99;
+  }
+  footer .phoneFooter {
+    display: none;
+  }
 }
-footer .footerArea {
-  width: inherit;
-  height: 15vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+@media screen and (min-width: 500px) and (max-width: 999px) {
+  footer {
+    width: 100vw;
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    bottom: 0;
+  }
+  footer .footerArea {
+    width: inherit;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  footer .footerArea .copyright {
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-stretch: ultra-expanded;
+    background-color: #212121;
+  }
+  footer .footerArea .footerImg {
+    width: inherit;
+    height: inherit;
+    -o-object-fit: cover;
+       object-fit: cover;
+    z-index: -99;
+  }
+  footer .phoneFooter {
+    display: none;
+  }
 }
-footer .footerArea .copyright {
-  position: absolute;
-  font-size: 1.5rem;
-  font-weight: bold;
-  font-stretch: ultra-expanded;
-  background-color: #212121;
-}
-footer .footerArea .footerImg {
-  width: inherit;
-  height: inherit;
-  -o-object-fit: cover;
-     object-fit: cover;
-  z-index: -99;
+@media screen and (min-width: 0px) and (max-width: 499px) {
+  footer {
+    width: 100vw;
+    height: 5vh;
+    background-color: #212121;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+  }
+  footer .footerArea {
+    display: none;
+  }
+  footer .phoneFooter {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-content: space-around;
+    align-items: bottom;
+  }
+  footer .phoneFooter a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .formSection {
@@ -259,12 +421,27 @@ footer .footerArea .footerImg {
   font-weight: bold;
 }
 .formSection .formFrame {
-  width: 60vw;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+@media screen and (min-width: 1000px) {
+  .formSection .formFrame {
+    width: 60vw;
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 999px) {
+  .formSection .formFrame {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 0px) and (max-width: 499px) {
+  .formSection .formFrame {
+    width: 100%;
+    padding-bottom: 10vh;
+  }
 }
 .formSection .formFrame .warning {
   color: red;
@@ -272,12 +449,26 @@ footer .footerArea .footerImg {
   padding-bottom: 3vh;
 }
 .formSection .formFrame form {
-  width: 40vw;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+@media screen and (min-width: 1000px) {
+  .formSection .formFrame form {
+    width: 40vw;
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 999px) {
+  .formSection .formFrame form {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 0px) and (max-width: 499px) {
+  .formSection .formFrame form {
+    width: 100%;
+  }
 }
 .formSection .formFrame form div {
   width: 100%;
@@ -301,7 +492,6 @@ footer .footerArea .footerImg {
 .formSection .formFrame form div .socialTab {
   width: 100%;
   height: 6vh;
-  font-size: 1.5rem;
   background-color: black;
   display: flex;
   align-items: center;
@@ -309,7 +499,21 @@ footer .footerArea .footerImg {
 }
 .formSection .formFrame form div .socialTab a {
   width: 100%;
-  font-size: 1rem;
+}
+@media screen and (min-width: 1000px) {
+  .formSection .formFrame form div .socialTab a {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 999px) {
+  .formSection .formFrame form div .socialTab a {
+    font-size: 0.8rem;
+  }
+}
+@media screen and (min-width: 0px) and (max-width: 499px) {
+  .formSection .formFrame form div .socialTab a {
+    font-size: 0.5rem;
+  }
 }
 .formSection .formFrame form div .submit {
   text-indent: 0;
@@ -401,8 +605,22 @@ footer .footerArea .footerImg {
 }
 
 .profileSection {
-  width: 80vw;
   height: auto;
+}
+@media screen and (min-width: 0px) and (max-width: 499px) {
+  .profileSection {
+    width: 100vw;
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 999px) {
+  .profileSection {
+    width: 80vw;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .profileSection {
+    width: 80vw;
+  }
 }
 .profileSection .userInfoBig {
   border-bottom-color: white;
@@ -414,21 +632,23 @@ footer .footerArea .footerImg {
   justify-content: flex-end;
   padding-right: 3vw;
 }
-.profileSection .userVideos {
-  width: 80vw;
-  height: 130vh;
+.profileSection .title {
   padding-top: 11vh;
+  font-size: 1.5rem;
+  padding-bottom: 1rem;
+}
+.profileSection .userVideos {
+  width: 100vw;
+  height: auto;
   display: grid;
-  grid-template-columns: 25vw 25vw 25vw;
-  grid-template-rows: 40vh 40vh 40vh;
-  justify-content: space-between;
-  align-content: space-between;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(auto, 40vh);
 }
 .profileSection .userVideos .videoArticle {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: 80% 10% 10%;
+  grid-template-rows: 100%;
   grid-template-columns: 1fr;
   justify-content: center;
   align-items: center;
@@ -444,17 +664,7 @@ footer .footerArea .footerImg {
 }
 .profileSection .userVideos .videoArticle .videoFrame .video {
   max-width: 100%;
-}
-.profileSection .userVideos .videoArticle .meta {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.profileSection .userVideos .videoArticle .meta .heart {
-  padding-left: 1rem;
-}
-.profileSection .userVideos .videoArticle .meta .like {
-  padding-left: 0.3rem;
+  max-height: 30vh;
 }
 
 .watchVideoSection {

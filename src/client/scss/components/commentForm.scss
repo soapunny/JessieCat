@@ -1,5 +1,14 @@
 .commentSection{
-    width: 80vw;
+    @include smartPhone(){
+        width: 100vw;
+        padding-bottom: 10vh;
+    }
+    @include tablet(){
+        width: 80vw;
+    }
+    @include laptop(){
+        width: 80vw;
+    }
     height: max-content;
     display: flex;
     flex-direction: column;
@@ -29,7 +38,15 @@
         border-top-style: solid;
 
         .userInfo{
-            width: 20%;
+            @include smartPhone(){
+                width: max-content;
+            }
+            @include tablet(){
+                width: max-content;
+            }
+            @include laptop(){
+                width: 20%;
+            }
             display: flex;
             justify-content: center;
             align-items: center;
@@ -42,12 +59,29 @@
             }
         }
         .commentForm{
-            width: 60%;
+            @include smartPhone(){
+                padding-left: 1rem;
+                width: max-content;
+            }
+            @include tablet(){
+                width: max-content;
+            }
+            @include laptop(){
+                width: 60%;
+            }
             height: 2rem;
             display: flex;
             align-items: center;
             .commentArea{
-                width: 100%;
+                @include smartPhone(){
+                    width: 80%;
+                }
+                @include tablet(){
+                    width: 80%;
+                }
+                @include laptop(){
+                    width: 100%;
+                }
                 height: inherit;
                 font-size: 1.2rem;
                 color: white;
@@ -64,7 +98,15 @@
                 
             }
             .submit{
-                width: 20%;
+                @include smartPhone(){
+                    width: max-content;
+                }
+                @include tablet(){
+                    width: 20%;
+                }
+                @include laptop(){
+                    width: 20%;
+                }
                 height: 100%;
                 font-size: 1.2rem;
                 color: $border_color;

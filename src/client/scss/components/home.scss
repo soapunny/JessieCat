@@ -2,24 +2,56 @@
 .videoSection{
     width: 100%;
     display: grid;
+    @include smartPhone(){
+        grid-template-columns: 100vw;
+    }
+    @include tablet(){
+        grid-template-columns: 80vw;
+    }
+    @include laptop(){
+        grid-template-columns: 80vw;
+    }
     grid-template-rows: 10vh repeat(auto, 85vh);
-    grid-template-columns: 80vw;
     justify-content: center;
     padding-bottom: 10vh;
     .videoSectionTitleArea{
-        width: 90vw;
+        align-self: center;
+        justify-self:left;
+        @include smartPhone(){
+            width: 100%;
+        }
+        @include tablet(){
+            width: 100%;
+        }
+        @include laptop(){
+            width: 90vw;
+        }
         .videoSectionTitle{
             background-color: $main_font_color;
             color: white;
-            font-size: 2rem;
+            @include smartPhone(){
+                font-size: 1.5rem;
+            }
+            @include tablet(){
+                font-size: 1.5rem;
+            }
+            @include laptop(){
+                font-size: 2.0rem;
+            }
         }
-        align-self: center;
-        justify-self:left;
     }
     .videoArticle{
         padding-top: 5vh;
         height: 100%;
-        width: 80vw;
+        @include smartPhone(){
+            width: 100vw;
+        }
+        @include tablet(){
+            width: 100vw;
+        }
+        @include laptop(){
+            width: 80vw;
+        }
     
         display: flex;
         flex-direction: column;
@@ -30,8 +62,18 @@
             height: 80vh;
             width: 100%;
             display: grid;
-            grid-template-rows: 10% 10% 70% 5% 5%;
-            grid-template-columns: 80vw;
+            @include smartPhone(){
+                grid-template-rows: 10% 10% 60% 5% 15%;
+                grid-template-columns: 100%;
+            }
+            @include tablet(){
+                grid-template-rows: 10% 10% 60% 5% 15%;
+                grid-template-columns: 100%;
+            }
+            @include laptop(){
+                grid-template-rows: 10% 10% 70% 5% 5%;
+                grid-template-columns: 80vw;
+            }
             align-items: center;
             .userInfo{
                 display: flex;
@@ -62,6 +104,7 @@
                 background-color: black;
             }
             .likeComment{
+                height: 100%;
                 display:flex;
                 font-size: 1.5rem;
                 align-items: center;
@@ -73,9 +116,13 @@
                 .comment{
                     padding-left: 1rem;
                 }
+                .commentCnt{
+                    font-size: 1rem;
+                    padding-left: 0.5rem;
+                }
             }
             .descriptionHashtags{
-                align-self: center;
+                height: 100%;
                 display:flex;
                 flex-direction: row;
                 flex-wrap: wrap;

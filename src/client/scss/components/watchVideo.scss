@@ -2,25 +2,50 @@
 .watchVideoSection{
     padding-top: 2vh;
     padding-bottom: 10vh;
-    width: 80vw;
+    @include smartPhone(){
+        width: 100vw;
+    }
+    @include tablet(){
+        width: 80vw;
+    }
+    @include laptop(){
+        width: 80vw;
+    }
     height: max-content;
     display: grid;
     grid-template-rows: 60vh 10vh 10vh;
     grid-template-columns: 1fr;
     background-color: $green_bg_color;
+
     
     .videoFrame{
         outline: none;
         position: relative;
         padding-top: 5vh;
-        width: 80vw;
+        @include smartPhone(){
+            width: 100vw;
+        }
+        @include tablet(){
+            width: 80vw;
+        }
+        @include laptop(){
+            width: 80vw;
+        }
         height: 50vh;
         display: flex;
         justify-content: center;
         background-color: $darker_bg_color;
         
         .video{
-            max-width: 80vw;
+            @include smartPhone(){
+                max-width: 100vw;
+            }
+            @include tablet(){
+                max-width: 80vw;
+            }
+            @include laptop(){
+                max-width: 80vw;
+            }
             max-height: 50vh;
             justify-self: center;
             object-fit: cover;
@@ -97,7 +122,7 @@
         }
     }
     .topMenu{
-        height: 100%;
+        height: auto;
         align-self: start;
         display: flex;
         flex-direction: column;
@@ -149,7 +174,16 @@
     }
     .bottomMenu{
         display: grid;
-        grid-template-columns: 20% 80%;
+        height: auto;
+        @include smartPhone(){
+            grid-template-rows: 1fr 2fr;
+        }
+        @include tablet(){
+            grid-template-columns: 20% 80%;
+        }
+        @include laptop(){
+            grid-template-columns: 20% 80%;
+        }
         padding-top: 2rem;
         
         .ownerInfo{
@@ -167,8 +201,16 @@
         }
         .videoDescription{
             color: white;
-            padding-top: 1rem;
-            padding-left: 2rem;
+            @include smartPhone(){
+                grid-template-rows: 1fr 2fr;
+            }
+            @include tablet(){
+                grid-template-columns: 20% 80%;
+            }
+            @include laptop(){
+                padding-top: 1rem;
+                padding-left: 2rem;
+            }
         }
     }
 }

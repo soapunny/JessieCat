@@ -1,13 +1,23 @@
 import { addComment, deleteComment, getComment, getComments } from "../models/commentModel";
 import { checkUserId, addCommentOnUser, updateVideosInUser, deleteVideoInUser, deleteCommentOnUser } from "../models/userModel";
-import { getHomeVideos, getVideoToWatch, getVideo, editVideo, uploadVideo, deleteVideo, searchVideos, doesVideoExist, updateView, addCommentOnVideo, deleteCommentOnVideo} from "../models/videoModel"
+import { getHomeVideos, getVideoToWatch, getVideo, editVideo, uploadVideo, deleteVideo, searchVideos, doesVideoExist, updateView, addCommentOnVideo, deleteCommentOnVideo, getRandomVideos} from "../models/videoModel"
 import { saveUserSession } from "./userController";
 
 export const getHome = async (req, res) => {
     try{
         const videos = await getHomeVideos();
-        return res.render("home", {pageTitle: "Home", videos});
-    }catch {
+        return res.render("home", {pageTitle: "Home", videos, videoTitle: "Treding Videos"});
+    }catch(error){
+        req.flash("error", "Fail to load the page.");
+        return res.status(400).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
+    }
+}
+
+export const getRandom = async (req, res) => {
+    try{
+        const videos = await getRandomVideos();
+        return res.render("home", {pageTitle: "Videos", videos, videoTitle: "Ramdom Videos"});
+    }catch (error){
         req.flash("error", "Fail to load the page.");
         return res.status(400).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
     }

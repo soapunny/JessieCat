@@ -1,29 +1,90 @@
 footer{
-    width: 100vw;
-    height: 30vh;
-    display: flex;
-    align-items: center;
-    bottom: 0;
-    .footerArea{
-        width: inherit;
-        height: 15vh;
+    @include laptop(){
+        width: 100vw;
+        height: 30vh;
         display: flex;
-        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        .copyright{
-            position: absolute;
-            font-size: $copyrightSize;
-            font-weight: bold;
-            font-stretch: ultra-expanded;
-            background-color: $bg_color;
-        }
-        .footerImg{
+        bottom: 0;
+        .footerArea{
             width: inherit;
-            height: inherit;
-            object-fit: cover;
-            z-index: -99;
+            height: 15vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .copyright{
+                position: absolute;
+                font-size: $copyrightSize;
+                font-weight: bold;
+                font-stretch: ultra-expanded;
+                background-color: $bg_color;
+            }
+            .footerImg{
+                width: inherit;
+                height: inherit;
+                object-fit: cover;
+                z-index: -99;
+            }
+        }
+        .phoneFooter{
+            display: none;
         }
     }
 
+    @include tablet(){
+        width: 100vw;
+        height: 30vh;
+        display: flex;
+        align-items: center;
+        bottom: 0;
+        .footerArea{
+            width: inherit;
+            height: 15vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .copyright{
+                position: absolute;
+                font-size: $copyrightSize;
+                font-weight: bold;
+                font-stretch: ultra-expanded;
+                background-color: $bg_color;
+            }
+            .footerImg{
+                width: inherit;
+                height: inherit;
+                object-fit: cover;
+                z-index: -99;
+            }
+        }
+        .phoneFooter{
+            display: none;
+        }
+    }
+    
+    @include smartPhone(){
+        width: 100vw;
+        height: 5vh;
+        background-color: $bg_color;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        .footerArea{
+            display: none;
+        }
+        .phoneFooter{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            justify-content: space-around;
+            align-items: bottom;
+            a{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
 }

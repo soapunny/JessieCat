@@ -178,11 +178,10 @@ export const postEdit = async (req, res) => {
                 return res.status(400).render("userEdit", {errorMessage: "Duplicate username"});
             }
         }
-
         const userDTO = await editUser(email, username, name, location, filePath);
         if(userDTO){
             saveUserSession(req, userDTO);
-            return redirect("/user/edit");
+            return res.redirect("/user/edit");
         }
         throw new Error("Error: User Edit Failed");
     }catch(error){

@@ -16,6 +16,9 @@ const s3 = new aws.S3({
 
 const multer = require("multer");
 
+//When you use it in Heroku
+const isHeroku = process.env.NODE_ENV === "production";
+
 export const localsMiddleware = (req, res, next) => {
     res.locals.siteName = SITE_NAME;
     res.locals.login = req.session.login;
@@ -41,9 +44,9 @@ export const logoutOnlyMiddleware = (req, res, next) => {
 }
 
 
-const awsStorage = multerS3({
+const imgStorage = multerS3({
     s3: s3,
-    bucket: 'jessiecat',
+    bucket: 'jessiecat/images',
     // acl: "public-read",
     metadata: function (req, file, cb) {
       cb(null, {fieldName: file.fieldname});
@@ -53,15 +56,39 @@ const awsStorage = multerS3({
         let extArray = file.mimetype.split('/');
         let ext = extArray[extArray.length - 1];
 
-        cb(null, "resources/email/" + Date.now().toString() + '.' + ext);
+        cb(null, "email/" + Date.now().toString() + '.' + ext);
+    }
+});
+
+
+const videoStorage = multerS3({
+    s3: s3,
+    bucket: 'jessiecat/videos',
+    // acl: "public-read",
+    metadata: function (req, file, cb) {
+      cb(null, {fieldName: file.fieldname});
+    },
+    key: function (req, file, cb) {
+        const email = req.session.userDTO.email
+        let extArray = file.mimetype.split('/');
+        let ext = extArray[extArray.length - 1];
+
+        cb(null, "email/" + Date.now().toString() + '.' + ext);
     }
 });
 
 //npm i multer => file upload middleware
-export const acceptImageFiles = multer({ storage: awsStorage, limits: {fileSize: 1048576*3} });
+export const acceptImageFiles = multer(
+    { 
+        storage: imgStorage, 
+        limits: {fileSize: 1048576*3} 
+    }
+);
 
 //npm i multer => file upload middleware
-export const acceptVideoFiles = multer({ storage: awsStorage, limits: {fileSize: 1048576*10} });
-
-//npm i multer => file upload middleware
-export const acceptFiles = multer({ storage: awsStorage,  limits: {fileSize: 1048576*10} });
+export const acceptVideoFiles = multer(
+    { 
+        storage: videoStorage, 
+        limits: {fileSize: 1048576*10} 
+    }
+);

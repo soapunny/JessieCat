@@ -1,7 +1,16 @@
 import VideoDBModel from "../db/videoDBModel";
+import UserDBModel from "../db/userDBModel";
 
 export const findHomeVideos = async () => {
     return await VideoDBModel.find({}).populate("owner").populate("likes").sort({date:"desc"});
+}
+
+export const findRandomVideos = async () => {
+    const totalCnt = VideoDBModel.count();
+    const size = totalCnt < 5 ? totalCnt : 5;
+    const videoDBModel = VideoDBModel.aggregate([{$sample: {size: size}},]);
+    await UserDBModel.populate(videoDBModel, {path: "owner"});
+    return videoDBModel;
 }
 
 export const findVideoById = async (_id, needAllInfo) => {

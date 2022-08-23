@@ -1,0 +1,25 @@
+$minSmartPhoneWidth : 0px;
+$maxSmartPhoneWidth : 499px;
+$minTabletWidth : 500px;
+$maxTabletWidth : 999px;
+$minLaptopWidth : 1000px;
+
+
+
+@mixin smartPhone(){
+    @media screen and (min-width: $minSmartPhoneWidth) and (max-width: $maxSmartPhoneWidth) {
+        @content;
+    }
+};
+
+@mixin tablet(){
+    @media screen and (min-width: $minTabletWidth) and (max-width: $maxTabletWidth) {
+        @content;
+    }
+};
+
+@mixin laptop(){
+    @media screen and (min-width: $minLaptopWidth) {
+        @content;
+    }
+};

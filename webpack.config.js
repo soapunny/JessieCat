@@ -17,6 +17,7 @@ module.exports = {
         home: `${BASE_JS_ROOT}home.js`,
         recorder: `${BASE_JS_ROOT}recorder.js`,
         commentSection: `${BASE_JS_ROOT}commentSection.js`,
+        profile: `${BASE_JS_ROOT}profile.js`,
     },
     plugins: [new MiniCssExtractPlugin({
         filename: "css/styles.css",

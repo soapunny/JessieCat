@@ -6,7 +6,7 @@ block content
     section.videoSection
         div.videoSectionTitleArea
             h2.videoSectionTitle
-                i.fab.fa-tumblr Trending Videos        
+                i.fab.fa-tumblr #{videoTitle}       
         if videos
             each video in videos
                 +video(video)

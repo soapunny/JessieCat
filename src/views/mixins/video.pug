@@ -45,11 +45,4 @@ mixin userVideo(video, username)
 mixin profileVideo(video, username)
     article.videoArticle
         div.videoFrame
-            video(src=video.videoUrl poster=video.thumbUrl loop=true muted="muted")#video.video
-        a(href=`/video/${video._id}`).title #{video.title}
-        div.meta
-            span.view #{video.view} views
-            a.heart#heart
-                i(class="fa-regular fa-heart")#heartIcon
-            span.like#like #{video.likes.length}
-                
+            video(data-videoid=video._id src=video.videoUrl poster=video.thumbUrl loop=true muted="muted")#video.video
