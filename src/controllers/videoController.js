@@ -60,7 +60,7 @@ export const postEdit = async (req, res) => {
         const videoId = req.params.id;
         const userId = req.session.userDTO._id;
         const {title, description, hashtags} = req.body;
-        const videoUrl = file ? `/${file.path}` : undefined;
+        const videoUrl = file ? `${file.location}` : undefined;
 
         const video = await doesVideoExist(videoId);
         if(!video){
@@ -90,8 +90,8 @@ export const postUpload = async (req, res) => {
         const {userDTO} = req.session;
         const {title, description, hashtags } = req.body;//ES6.
         const {video, thumbnail} = req.files;
-        const videoUrl = video ? `/${video[0].path}` : undefined;
-        const thumbUrl = thumbnail ? `/${thumbnail[0].path}` : undefined;
+        const videoUrl = video ? `${video[0].location}` : undefined;
+        const thumbUrl = thumbnail ? `${thumbnail[0].location}` : undefined;
         if(!videoUrl || !title){
             return res.render("uploadVideo", {pageTitle: "Upload Video", errorMessage: "Attach at least one video"});
         }

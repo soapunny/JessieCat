@@ -32,10 +32,11 @@ app.use(session({
     store: MongoStore.create({mongoUrl: process.env.MONGO_DB_URL}),//Save session in MongoDB
 }));//use session middleware before routers.
 app.use((req, res, next) => {
-    req.
-    res.header("Cross-Origin-Embedder-Policy", "require-corp");
-    res.header("Cross-Origin-Opener-Policy", "cross-origin");
-    res.header("Cross-Origin-Resource-Policy", "cross-origin");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
     next();
 });
 

@@ -1,6 +1,18 @@
 import { SITE_NAME, THUMBNAIL_FIELD_NAME, VIDEO_FIELD_NAME } from "../names/names";
-import { getAvatarDir, getVideoDir, makeFolder } from "../utils/fileUtil";
 import FormatUtil from "../utils/formatUtil";
+//npm install --save multer-s3
+import multerS3 from "multer-s3";
+//npm i aws-sdk
+import aws from "aws-sdk";
+
+const s3 = new aws.S3({
+    credentials: {
+        accessKeyId: process.env.AWS_ID,
+        secretAccessKey: process.env.AWS_SECRET,
+    },
+    logger: console,
+});
+
 
 const multer = require("multer");
 
@@ -28,61 +40,28 @@ export const logoutOnlyMiddleware = (req, res, next) => {
     return res.redirect("/");
 }
 
-const imageStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const userId = req.session.userDTO._id;
-        const dest = getAvatarDir(userId);
-        makeFolder(dest);
-        cb(null, dest);
+
+const awsStorage = multerS3({
+    s3: s3,
+    bucket: 'jessiecat',
+    // acl: "public-read",
+    metadata: function (req, file, cb) {
+      cb(null, {fieldName: file.fieldname});
     },
-    filename: function (req, file, cb) {
-        const splitedFileName = file.originalname.split(".");
-        const extension = splitedFileName[splitedFileName.length-1];
-        cb(null, file.fieldname + '-' + Date.now()+'.'+extension);
-    },
+    key: function (req, file, cb) {
+        const email = req.session.userDTO.email
+        let extArray = file.mimetype.split('/');
+        let ext = extArray[extArray.length - 1];
+
+        cb(null, "resources/email/" + Date.now().toString() + '.' + ext);
+    }
 });
 
 //npm i multer => file upload middleware
-export const acceptImageFiles = multer({ storage: imageStorage, limits: {fileSize: 1048576*3} });
-
-const videoStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const userId = req.session.userDTO._id;
-        const dest = getVideoDir(userId);
-        makeFolder(dest);
-        cb(null, dest);
-    },
-    filename: function (req, file, cb) {
-        const splitedFileName = file.originalname.split(".");
-        const extension = splitedFileName[splitedFileName.length-1];
-        cb(null, file.fieldname + '-' + Date.now()+'.'+extension);
-    },
-});
+export const acceptImageFiles = multer({ storage: awsStorage, limits: {fileSize: 1048576*3} });
 
 //npm i multer => file upload middleware
-export const acceptVideoFiles = multer({ storage: videoStorage, limits: {fileSize: 1048576*10} });
-
-
-const fileStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        if(file.fieldname === VIDEO_FIELD_NAME){
-            const userId = req.session.userDTO._id;
-            const dest = getVideoDir(userId);
-            makeFolder(dest);
-            cb(null, dest);
-        }else if(file.fieldname === THUMBNAIL_FIELD_NAME){
-            const userId = req.session.userDTO._id;
-            const dest = getVideoDir(userId);
-            makeFolder(dest);
-            cb(null, dest);
-        }
-    },
-    filename: function (req, file, cb) {
-        const splitedFileName = file.originalname.split(".");
-        const extension = splitedFileName[splitedFileName.length-1];
-        cb(null, file.fieldname + '-' + Date.now()+'.'+extension);
-    },
-});
+export const acceptVideoFiles = multer({ storage: awsStorage, limits: {fileSize: 1048576*10} });
 
 //npm i multer => file upload middleware
-export const acceptFiles = multer({ storage: fileStorage,  limits: {fileSize: 1048576*10} });
+export const acceptFiles = multer({ storage: awsStorage,  limits: {fileSize: 1048576*10} });

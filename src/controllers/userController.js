@@ -168,7 +168,7 @@ export const postEdit = async (req, res) => {
         const { username, name, location } = req.body;
         
         const file = req.file;
-        const filePath = file ? `/${file.path}` : avatarUrl;
+        const filePath = file ? `${file.location}` : avatarUrl;
 
         const originalUsername = req.session.userDTO.username;
         if(originalUsername !== username){
