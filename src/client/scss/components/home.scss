@@ -4,6 +4,7 @@
     display: grid;
     @include smartPhone(){
         grid-template-columns: 100vw;
+        padding-bottom: 10vh;
     }
     @include tablet(){
         grid-template-columns: 80vw;
