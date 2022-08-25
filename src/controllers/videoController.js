@@ -172,7 +172,7 @@ export const getSearch = async(req, res) => {
         }else{
             keyword = "";
         }
-        return res.render("searchVideos", {pageTitle: `Search \"${keyword}\"`, videos});
+        return res.render("searchVideos", {pageTitle: `Search \"${keyword}\"`, keyword, videos});
     }catch(error){
         req.flash("error", "Cannot search the keyword.");
         return res.status(400).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});

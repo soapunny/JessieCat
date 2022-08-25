@@ -5,11 +5,11 @@ include mixins/video
 block content
     section.videoSection
         form(method='get' action='/search').searchForm
-            input(name='keyword' type='text' placeholder='search' required).searchBox
+            input(name='keyword' value=`${keyword}` type='text' placeholder='search' required).searchBox
             input(type='submit' value='search').searchBtn
-        div.videoSectionTitleArea
-            h2.videoSectionTitle
-                <i class="fa-solid fa-magnifying-glass"> #{pageTitle}</i> 
+        //- div.videoSectionTitleArea
+        //-     h2.videoSectionTitle
+        //-         i(class="fa-solid fa-magnifying-glass") #{pageTitle}
         if videos
             each video in videos
                 +video(video)
