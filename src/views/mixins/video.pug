@@ -7,7 +7,7 @@ mixin video(video)
                 a(href=`/user/profile/${video.owner.username}` class='username') #{video.owner.username}
                     
             a(href=`/video/${video._id}`).title #{video.title}
-            video(src=video.videoUrl playinline poster=video.thumbUrl loop=true muted="muted")#video.video
+            video(src=video.videoUrl playsinline poster=video.thumbUrl loop=true muted="muted")#video.video
             div.likeComment
                 a.heart#heart
                     i(class="fa-regular fa-heart")#heartIcon
@@ -29,7 +29,7 @@ mixin userVideo(video, username)
                 a(href=`/user/profile/${username}` class='username')=username
             
             a(href=`/video/${video._id}`).title #{video.title}
-            video(src=video.videoUrl playinline poster=video.thumbUrl loop=true muted="muted")#video.video
+            video(src=video.videoUrl playsinline poster=video.thumbUrl loop=true muted="muted")#video.video
             div.likeComment
                 a.heart#heart
                     i(class="fa-regular fa-heart")#heartIcon
@@ -45,4 +45,4 @@ mixin userVideo(video, username)
 mixin profileVideo(video, username)
     article.videoArticle
         div.videoFrame
-            video(data-videoid=video._id playinline src=video.videoUrl poster=video.thumbUrl loop=true muted="muted")#video.video
+            video(data-videoid=video._id playsinline src=video.videoUrl poster=video.thumbUrl loop=true muted="muted")#video.video
