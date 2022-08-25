@@ -33,7 +33,7 @@ const isScrollYInElement = (element) => {
 const initEvents = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     window.addEventListener("wheel", handleVideoStartPause);
-    window.addEventListener("mousedown", handleVideoStartPause);
+    window.addEventListener("touchstart", handleVideoStartPause);
 }
 
 initEvents();
