@@ -21,7 +21,7 @@
             width: 100%;
         }
         @include tablet(){
-            width: 100%;
+            width: 90vw;
         }
         @include laptop(){
             width: 90vw;
@@ -47,7 +47,7 @@
             width: 100vw;
         }
         @include tablet(){
-            width: 100vw;
+            width: 80vw;
         }
         @include laptop(){
             width: 80vw;
@@ -67,7 +67,7 @@
                 grid-template-columns: 100%;
             }
             @include tablet(){
-                grid-template-rows: 10% 10% 60% 5% 15%;
+                grid-template-rows: 10% 10% 70% 5% 5%;
                 grid-template-columns: 100%;
             }
             @include laptop(){

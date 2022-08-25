@@ -72,6 +72,12 @@ footer{
         left: 0;
         right: 0;
         z-index: 999;
+
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
+        justify-content: space-around;
+
         .footerArea{
             display: none;
         }
@@ -79,7 +85,7 @@ footer{
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
             justify-content: space-around;
-            align-items: bottom;
+            align-items: center;
             a{
                 display: flex;
                 justify-content: center;
