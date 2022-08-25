@@ -154,19 +154,22 @@
                 background-color: black;
             }
             .likeComment{
-                height: 100%;
+                height: max-content;
                 display:flex;
                 font-size: 1.5rem;
                 align-items: center;
                 
                 .like{
+                    height: max-content;
                     font-size: 1rem;
                     padding-left: 0.5rem;
                 }
                 .comment{
+                    height: max-content;
                     padding-left: 1rem;
                 }
                 .commentCnt{
+                    height: max-content;
                     font-size: 1rem;
                     padding-left: 0.5rem;
                 }
