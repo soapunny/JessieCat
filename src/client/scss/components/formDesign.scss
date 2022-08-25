@@ -98,7 +98,7 @@
                 }
                 .submit{
                     appearance: none;
-                    border-radius: 0;
+                    border-radius: $border_radius;
                     text-indent: 0;
                     &:hover{
                         color: white;

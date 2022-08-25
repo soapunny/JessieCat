@@ -34,11 +34,14 @@
             border-width: $border_width;
             border-style: solid;
             border-color: white;
+            appearance: none;
+            border-radius: 0;
             color: white;
             background-color: $bg_color;
             width: 80%;
         }
         .searchBtn{
+            height: 5vh;
             font-size: 1rem;
             box-sizing: border-box;
             border-width: $border_width;
