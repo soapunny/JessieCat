@@ -1,7 +1,6 @@
 .commentSection{
     @include smartPhone(){
         width: 100vw;
-        padding-bottom: 10vh;
     }
     @include tablet(){
         width: 80vw;

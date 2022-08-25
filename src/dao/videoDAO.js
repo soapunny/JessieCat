@@ -8,9 +8,10 @@ export const findHomeVideos = async () => {
 export const findRandomVideos = async () => {
     const totalCnt = VideoDBModel.count();
     const size = totalCnt < 5 ? totalCnt : 5;
-    const videoDBModel = VideoDBModel.aggregate([{$sample: {size: size}},]);
-    await UserDBModel.populate(videoDBModel, {path: "owner"});
-    return videoDBModel;
+    const videoDBModels = await VideoDBModel.aggregate([{$sample: {size: size}},]);
+    await UserDBModel.populate(videoDBModels, {path: "owner"});
+    console.log(videoDBModels);
+    return videoDBModels;
 }
 
 export const findVideoById = async (_id, needAllInfo) => {

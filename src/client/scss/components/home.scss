@@ -4,7 +4,6 @@
     display: grid;
     @include smartPhone(){
         grid-template-columns: 100vw;
-        padding-bottom: 10vh;
     }
     @include tablet(){
         grid-template-columns: 80vw;
@@ -12,9 +11,51 @@
     @include laptop(){
         grid-template-columns: 80vw;
     }
-    grid-template-rows: 10vh repeat(auto, 85vh);
+    grid-template-rows: max-content repeat(auto, 85vh);
     justify-content: center;
     padding-bottom: 10vh;
+    .searchForm{
+        background-color: $bg_color;
+        position: fixed;
+        top: 10vh;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        width: 100%;
+        width: 100%;
+        padding-bottom: 3vh;
+        display: flex;
+        justify-content: end;
+        .searchBox{
+            height: 5vh;
+            text-indent: 1rem;
+            font-size: 1rem;
+            box-sizing: border-box;
+            border-width: $border_width;
+            border-style: solid;
+            border-color: white;
+            color: white;
+            background-color: $bg_color;
+            width: 80%;
+        }
+        .searchBtn{
+            font-size: 1rem;
+            box-sizing: border-box;
+            border-width: $border_width;
+            border-style: solid;
+            border-color: white;
+            background-color: $bg_color;
+            font-weight: bold;
+            color: white;
+            width: 20%;
+        }
+        @include tablet(){
+            display: none;
+        }
+        @include laptop(){
+            display: none;
+        }
+    }
     .videoSectionTitleArea{
         align-self: center;
         justify-self:left;
@@ -135,6 +176,7 @@
                 }
                 .hashtag{
                     padding-left: 0.5rem;
+                    height: max-content;
                 }
             }
         }

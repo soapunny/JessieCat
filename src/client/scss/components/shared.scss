@@ -86,6 +86,10 @@ button{
 
 main{
     padding-top: 11vh;
+    @include smartPhone(){
+        padding-bottom: 10vh;
+    }
+
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -6,7 +6,7 @@ import { saveUserSession } from "./userController";
 export const getHome = async (req, res) => {
     try{
         const videos = await getHomeVideos();
-        return res.render("home", {pageTitle: "Home", videos, videoTitle: "Treding Videos"});
+        return res.render("home", {pageTitle: "Home", videos, videoTitle: "Treding Videos", trending: true});
     }catch(error){
         req.flash("error", "Fail to load the page.");
         return res.status(400).render("errors/server-error", {pageTitle: "Error", errorMessage: error.message});
@@ -165,8 +165,13 @@ export const getDelete = async (req, res) => {
 
 export const getSearch = async(req, res) => {
     try{
-        const {keyword} = req.query;
-        const videos = await searchVideos(keyword);
+        let keyword = req.query.keyword;
+        let videos = undefined;
+        if(keyword){
+            videos = await searchVideos(keyword);
+        }else{
+            keyword = "";
+        }
         return res.render("searchVideos", {pageTitle: `Search \"${keyword}\"`, videos});
     }catch(error){
         req.flash("error", "Cannot search the keyword.");
